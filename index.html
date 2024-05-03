@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NGA Routines</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+      width: calc(100% / 3); /* Set fixed width for each cell */
+      word-wrap: break-word; /* Wrap long text */
+      height: 20px;
+    }
+    .header-row {
+      background-color: blue;
+      color: white;
+    }
+    .odd-row {
+      background-color: #f2f2f2;
+    }
+    .even-row {
+      background-color: #ffffff;
+    }
+    /* Styling for circular buttons */
+    .circular-button-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+    }
+    .circular-button {
+      width: 50px;
+      height: 50px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      line-height: 50px;
+      text-align: center;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+  </style>
+</head>
+<body>
+<h1>NGA Routine construction</h1>
+<h2>By: Gustavo Rios </h2>
+<h3>USA Youth Fitness Center</h3>
+
+<div id="routine-tables-container">
+    <table id="routine-table-template" class="editable-table">
+        <tr class="header-row">
+          <th colspan="3">Level 4 Floor Routine</th>
+        </tr>
+        <tr class="header-row">
+          <th>Skills</th>
+          <th>Performance Criteria</th>
+          <th>Notes</th>
+        </tr>
+        <tr class="odd-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="even-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="odd-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="even-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="odd-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="even-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="odd-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="even-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="odd-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="even-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr class="odd-row">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="circular-button-container">
+    <button class="circular-button" onclick="addNewRoutine()">+</button>
+    <button class="circular-button" onclick="deleteLastRoutine()">-</button>
+</div>
+
+<script>
+    function addNewRoutine() {
+      var templateTable = document.getElementById('routine-table-template');
+      var newTable = templateTable.cloneNode(true);
+      var timestamp = new Date().getTime();
+      var newTableID = 'routine-table-' + timestamp;
+      newTable.setAttribute('id', newTableID);
+
+      // Reset text content to empty for all cells in the new table
+    var cells = newTable.querySelectorAll('td');
+    cells.forEach(function(cell) {
+        cell.textContent = ''; // Reset text content to empty string
+    });
+
+      document.getElementById('routine-tables-container').appendChild(newTable);
+
+      // Add event listeners to the cells for text input
+      var cells = newTable.querySelectorAll('td');
+      cells.forEach(function(cell) {
+        cell.addEventListener('click', function() {
+          var newText = prompt('Enter text:');
+          if (newText !== null) {
+            this.textContent = newText;
+          }
+        });
+      });
+    }
+
+    function deleteLastRoutine() {
+        var routineTablesContainer = document.getElementById('routine-tables-container');
+        var routineTables = routineTablesContainer.querySelectorAll('.editable-table');
+
+        // Check if there is only one routine table left
+        if (routineTables.length <= 1) {
+            alert("You must have at least one routine created. You cannot delete all tables.");
+            return; // Exit the function to prevent deletion
+        }
+
+        var lastTable = routineTables[routineTables.length - 1];
+        if (lastTable.id !== 'routine-table-template') {
+            routineTablesContainer.removeChild(lastTable);
+        }
+    }
+    function addEventListenersToTables() {
+        var tables = document.querySelectorAll('.editable-table');
+        tables.forEach(function(table) {
+            var cells = table.querySelectorAll('td');
+            cells.forEach(function(cell) {
+                cell.addEventListener('click', function() {
+                    var newText = prompt('Enter text:');
+                    if (newText !== null) {
+                        this.textContent = newText;
+                    }
+                });
+            });
+        });
+    }
+
+    // Call the function when the DOM content is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        addEventListenersToTables();
+    });
+  
+  </script>
+
+</body>
+</html>
