@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid-container{
+            display: grid;
+            border: 1px solid blue;
+            grid-template-rows: 20% 60% 20%;
+            height: 300px;
+            width: 300px;
+        }
+        .grid-container > div{
+            border: 1px solid black;
+        }
+        .skill-heading{
+            background-color: lightblue;
+        }
+        .picture {
+            background-image: url('/Users/gustavo/Desktop/NGA Routines/public/pictures/sample.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .description-box {
+            background-color: lightblue;
+            overflow: auto;
+        }
+        .description-box ul {
+            list-style-type: disc;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="skill-heading">Name of skill</div>
+        <div class="picture"></div>
+        <div class="description-box">
+            <ul>
+                <li>This is step one of skill</li>
+                <li>this is step two of the skill</li>
+                <li>this is step three of the skill</li>
+                <li>this is step four of the skill</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
