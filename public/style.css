@@ -21,7 +21,10 @@ td {
 .even-row {
   background-color: #ffffff;
 }
-
+#routine-table-template td:hover {
+  background-color: rgb(192, 192, 192);
+  cursor: pointer;
+}
 /* Styling for circular buttons */
 .circular-button-container {
   position: fixed;

@@ -26,10 +26,10 @@ function addNewRoutine() {
   var headings = newTable.querySelectorAll("th");
   headings.forEach(function (headings) {
     headings.addEventListener("click", function () {
-        var newText = prompt("Change Event: ");
-        if(newText !== null) {
-            this.textContent = newText;
-        }
+      var newText = prompt("Change Event: ");
+      if (newText !== null) {
+        this.textContent = newText;
+      }
     });
   });
 }
@@ -55,15 +55,12 @@ function deleteLastRoutine() {
   }
 }
 function addEventListenersToTables() {
-  var tables = document.querySelectorAll(".editable-table");
+var tables = document.querySelectorAll(".editable-table");
   tables.forEach(function (table) {
     var cells = table.querySelectorAll("td");
     cells.forEach(function (cell) {
       cell.addEventListener("click", function () {
-        var newText = prompt("Enter a skill:");
-        if (newText !== null) {
-          this.textContent = newText;
-        }
+        window.location.href = "skill.html";
       });
     });
   });
@@ -74,15 +71,5 @@ document.addEventListener("DOMContentLoaded", function () {
   addEventListenersToTables();
 });
 
-const elementToHover = document.getElementById('elementToHover');
-const elementToPopup = document.getElementById('elementToPopup');
-
-elementToHover.addEventListener('mouseenter',
-() => {
-    elementToPopup.style.display = 'block';
-});
-
-elementToPopup.addEventListener('mouseleave',
-() => {
-    elementToPopup.style.display = 'none';
-});
+const elementToHover = document.getElementById("elementToHover");
+const elementToPopup = document.getElementById("elementToPopup");
