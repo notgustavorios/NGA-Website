@@ -61,6 +61,10 @@ var tables = document.querySelectorAll(".editable-table");
     cells.forEach(function (cell) {
       cell.addEventListener("click", function () {
         window.location.href = "skill.html";
+
+        localStorage.setItem("selectedCellContent", cell.textContent);
+        localStorage.setItem("selectedCellRow", cell.parentNode.rowIndex);
+        localStorage.setItem("selectedCellColumn",cell.cellIndex);
       });
     });
   });

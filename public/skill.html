@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr); /* Two columns */
+            border: 1px solid blue;
+            width: 90%; /* Adjust container width */
+            margin: 20px auto; /* Center container */
+        }
         .grid-container{
             display: grid;
             border: 1px solid blue;
@@ -41,18 +48,33 @@
             padding: 0;
             margin: 0;
         }
+        .header {
+            background-color: blue;
+            height:50px;
+            color: white;
+            font-size: xx-large;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="grid-container" onclick="redirectToIndex(this)">
-        <div class="skill-heading">Round off</div>
-        <div class="picture"></div>
-        <div class="description-box">
-            <ul>
-                <li>NGA Super Skill</li>
-            </ul>
+    <header class="header">
+        NGA Element Group 1 Super Skills
+    </header>
+    <div class="container">
+        <div class="grid-container" onclick="redirectToIndex(this)">
+            <div class="skill-heading">Round off</div>
+            <div class="picture"></div>
+            <div class="description-box">
+                <ul>
+                    <li>Element Group: 1</li>
+                    <li>Difficulty: 0.1</li>
+                </ul>
+            </div>
         </div>
-    </div>
+        
+    
+    
 </body>
 <script>
     class Skill{
@@ -66,7 +88,7 @@
     function redirectToIndex(element) {
         var skillHeadingText = element.querySelector('.skill-heading').textContent;
         console.log(skillHeadingText); 
-        // window.location.href = "index.html";
+        window.location.href = "index.html";
         
     }
 
