@@ -55,10 +55,12 @@
             width: 100%;
             margin-bottom: 20px;
         }
+
         .skill-entry:hover {
             background-color: rgb(135, 135, 135);
-            cursor:pointer;
+            cursor: pointer;
         }
+
         .skill-table th,
         .skill-table td {
             border: 1px solid black;
@@ -127,16 +129,18 @@
         </table>
     </div>
 
+    <input type="file" id="csvFileInput" accept=".csv">
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
 
-        function addSkill(_name,_difficulty,_elementGroup) {
+        function addSkill(_name, _difficulty, _elementGroup) {
             const rowCount = $("#routine-table-template tr:not(.header-row)").length;
             const skillRowClass = rowCount % 2 !== 0 ? "skill-even-row" : "skill-odd-row";
             const skillId = "skill-" + Date.now();
-            const newRow = $("<tr></tr>").addClass(skillRowClass).attr("id",skillId);
+            const newRow = $("<tr></tr>").addClass(skillRowClass).attr("id", skillId);
             newRow.append(`<td>${_name}</td>`);
             newRow.append(`<td>${_difficulty}</td>`);
             newRow.append(`<td>${_elementGroup}</td>`);
@@ -153,6 +157,23 @@
             newRow.append(`</div>`)
             newRow.append(`</div>`)
             $(".add-row").after(newRow);
+        }
+
+        function parseCSV(csv) {
+            var lines = csv.split("\n");
+            var table = $(".skill-table");
+
+            for (var i = 0; i < lines.length; i++) {
+                var row = lines[i].split(",");
+                if (row.length === 4) {
+                    var skill = row[0];
+                    var difficulty = row[2];
+                    var group = row[1];
+
+                    // Append row to the table
+                    table.append("<tr class='skill-entry'><td>" + skill + "</td><td>" + difficulty + "</td><td>" + group + "</td></tr>");
+                }
+            }
         }
 
 
@@ -172,14 +193,14 @@
             })
 
             // skill-table-container
-            $(".skill-entry").click(function() {
+            $(document).on("click", ".skill-entry", function () {
                 const skillName = $(this).find("td").eq(0).text(); // Get text content of first cell (Skill)
                 const skillDifficulty = $(this).find("td").eq(1).text(); // Get text content of second cell (Difficulty)
                 const skillElementGroup = $(this).find("td").eq(2).text(); // Get text content of third cell (Element Group)
-                addSkill(skillName,skillDifficulty,skillElementGroup);
+                addSkill(skillName, skillDifficulty, skillElementGroup);
                 $("#skill-table-container").hide();
                 $("#routine-tables-container").show();
-            })
+            });
 
             // Delete skill row
             $("#delete-skill-button").click(() => {
@@ -197,6 +218,22 @@
                 console.log($(this).val())
 
             })
+
+            //csv file listener
+            $(document).ready(function () {
+                // Event listener for file input change
+                $("#csvFileInput").on("change", function (event) {
+                    var file = event.target.files[0];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var csvData = e.target.result;
+                            parseCSV(csvData);
+                        };
+                        reader.readAsText(file);
+                    }
+                });
+            });
 
         })
 

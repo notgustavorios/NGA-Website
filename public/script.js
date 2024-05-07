@@ -1,12 +1,5 @@
 
 
-$(document).ready(function() {
-  console.log("JQEURY loaded");
-})
-
-
-
-
 function addNewRoutine() {
   var templateTable = document.getElementById("routine-table-template");
   var newTable = templateTable.cloneNode(true);
