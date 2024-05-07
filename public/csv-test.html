@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read CSV with jQuery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id="csv-file" accept=".csv">
+    <div id="csv-content"></div>
+
+    <script>
+
+        function csvToJson(csv) {
+            const lines = csv.split("\n");
+            const headers = lines[0].split(",");
+            const jsonData = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const skillData = {};
+                const currentLine = lines[i].split(",");
+
+                for (let j = 0; j < headers.length; j++) {
+                    skillData[headers[j]] = currentLine[j];
+                }
+
+                jsonData.push(skillData);
+            }
+
+            return jsonData;
+        }
+
+        $(document).ready(() => {
+            $("#csv-file").on("change", function (e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function () {
+                    const csvData = reader.result;
+                    const jsonData = csvToJson(csvData);
+                    console.log(jsonData); // Log the JSON object to the console
+                    displayCsvData(csvData);
+                };
+
+                reader.readAsText(file);
+            });
+
+            function displayCsvData(data) {
+                const csvContent = $("#csv-content");
+                csvContent.empty();
+                const lines = data.split("\n");
+                lines.forEach(line => {
+                    const rowElement = $("<div></div>");
+                    const cells = line.split(",");
+                    cells.forEach(cell => {
+                        rowElement.append(`<span>${cell}</span>`);
+                    });
+                    csvContent.append(rowElement);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

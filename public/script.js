@@ -1,3 +1,12 @@
+
+
+$(document).ready(function() {
+  console.log("JQEURY loaded");
+})
+
+
+
+
 function addNewRoutine() {
   var templateTable = document.getElementById("routine-table-template");
   var newTable = templateTable.cloneNode(true);
@@ -73,3 +82,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const elementToHover = document.getElementById("elementToHover");
 const elementToPopup = document.getElementById("elementToPopup");
+
+
+class Skill{
+  constructor(_name,_elementGroup,_difficulty,_direction){
+      this.name = _name;
+      this.elementGroup = _elementGroup;
+      this.difficulty = _difficulty;
+      this.direction = _direction;
+  }
+}
+function redirectToIndex(element) {
+  var skillHeadingText = element.querySelector('.skill-heading').textContent;
+  console.log(skillHeadingText); 
+  // window.location.href = "index.html";
+  
+}
