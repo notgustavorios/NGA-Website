@@ -188,16 +188,75 @@
             }
         }
         function calculate_level_4() {
-            var totalDifficulty = 0.0;
+            
             var skills = $("#routine-table-template tr:not(.header-row):not(.add-row)"); // only the skills
             
+            var score = 10.0;
+            var difficulty = 0.0;
+            const elementGroups = new Set();
+            const skill_names = new Set();
+
             skills.each(function () {
+                skill_names.add($(this).find("td").eq(0).text()); 
+                elementGroups.add($(this).find("td").eq(2).text()); 
+
                 var difficultyText = $(this).find("td").eq(1).text();
-                totalDifficulty += parseFloat(difficultyText);
+                difficulty += parseFloat(difficultyText);
             });
 
-            console.log("Total Difficulty:", totalDifficulty);
+            // missing element group deductions
+            switch(elementGroups.size)
+            {
+                case 0:
+                    console.log("Have no idea how to calculate this yet");
+                    score = 0;
+                    break;
+                case 1:
+                    score = score - 1.5;
+                    break;
+                case 2:
+                    score = score - 1.0;
+                    break;
+                case 3:
+                    score = score - 0.5;
+                    break;
+                default:
+                    console.log("Element groups satisfied");
+            }
 
+            // short routine deductions
+            switch(skill_names.size)
+            {
+                case 0:
+                    score = 0;
+                case 1:
+                    score -= 7.0;
+                    break;
+                case 2:
+                    score -= 6.0;
+                    break;
+                case 3:
+                    score -= 5.0;
+                    break;
+                case 4:
+                    score -= 4.0;
+                    break;
+                case 5:
+                    score -= 3.0;
+                    break;
+                default:
+                    console.log("Met minumim 6 skills requirement");
+            }
+            
+            // missing fig requirement
+            if(difficulty < 0.1)
+            {
+                score -= 0.5;
+            }
+
+            console.log("Total Difficulty:", difficulty);
+            score += difficulty;
+            console.log(score);
         }
         function calculateScore(_event, _level) {
             switch (_level) {
@@ -207,6 +266,7 @@
                 default:
                     console.log("Level not supported yet!");
             }
+            
         }
 
         $(document).ready(function () {
