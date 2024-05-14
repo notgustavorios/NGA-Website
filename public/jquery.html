@@ -113,6 +113,7 @@
     </div>
 
     <div id="skill-table-container"></div>
+    <div id="fig-skill-table-container"></div>
 
     <input type="file" id="csvFileInput" accept=".csv">
 
@@ -208,17 +209,20 @@
             switch(elementGroups.size)
             {
                 case 0:
-                    console.log("Have no idea how to calculate this yet");
+                    console.log("Missing 4 element groups. Routine has no value");
                     score = 0;
                     break;
                 case 1:
                     score = score - 1.5;
+                    console.log("Missing 3 element groups. -1.5 deduction applied");
                     break;
                 case 2:
                     score = score - 1.0;
+                    console.log("Missing 2 element groups. -1.0 deduction applied");
                     break;
                 case 3:
                     score = score - 0.5;
+                    console.log("Missing 1 element group. -0.5 deduction applied");
                     break;
                 default:
                     console.log("Element groups satisfied");
@@ -229,29 +233,38 @@
             {
                 case 0:
                     score = 0;
+                    console.log("Short routine deduction applied");
+                    break;
                 case 1:
                     score -= 7.0;
+                    console.log("Short routine deduction applied");
                     break;
                 case 2:
                     score -= 6.0;
+                    console.log("Short routine deduction applied");
                     break;
                 case 3:
                     score -= 5.0;
+                    console.log("Short routine deduction applied");
                     break;
                 case 4:
                     score -= 4.0;
+                    console.log("Short routine deduction applied");
                     break;
                 case 5:
                     score -= 3.0;
+                    console.log("Short routine deduction applied");
                     break;
                 default:
                     console.log("Met minumim 6 skills requirement");
+                    break;
             }
             
             // missing fig requirement
             if(difficulty < 0.1)
             {
                 score -= 0.5;
+                console.log("Missing FIG 'A' requirement");
             }
 
             console.log("Total Difficulty:", difficulty);
@@ -266,7 +279,7 @@
                 default:
                     console.log("Level not supported yet!");
             }
-            
+
         }
 
         $(document).ready(function () {
