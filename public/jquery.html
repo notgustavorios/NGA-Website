@@ -91,7 +91,7 @@
     <div id="routine-tables-container">
         <table id="routine-table-template" class="editable-table">
             <tr class="header-row">
-                <th colspan="3">Level 4 Floor Routine</th>
+                <th colspan="3">Level 4 Rings Routine</th>
             </tr>
             <tr class="header-row" id="subheader">
                 <th>Skills</th>
@@ -106,7 +106,7 @@
                     <button id="delete-skill-button">Delete last skill</button>
                 </td>
                 <td>
-                    <button>Blank for now</button>
+                    <button id="calculate-score-button">Calculate score</button>
                 </td>
             </tr>
         </table>
@@ -143,19 +143,6 @@
             return "IV";
         }
 
-        function toRomanNumeral(integer) {
-            if (integer === 1) {
-                return "I";
-            }
-            if (integer === 2) {
-                return "II";
-            }
-            if (integer === 3) {
-                return "III";
-            }
-            return "IV";
-        }
-
         function createTable(event, elementGroup) {
             var newTable = $("<table class='skill-table'></table>");
 
@@ -167,7 +154,6 @@
 
             return newTable;
         }
-
         function parseCSV(csv) {
             var lines = csv.split("\n");
             var event = "";
@@ -201,8 +187,29 @@
                 }
             }
         }
+        function calculate_level_4() {
+            var totalDifficulty = 0.0;
+            var skills = $("#routine-table-template tr:not(.header-row):not(.add-row)"); // only the skills
+            
+            skills.each(function () {
+                var difficultyText = $(this).find("td").eq(1).text();
+                totalDifficulty += parseFloat(difficultyText);
+            });
 
-        $(document).ready(() => {
+            console.log("Total Difficulty:", totalDifficulty);
+
+        }
+        function calculateScore(_event, _level) {
+            switch (_level) {
+                case "4":
+                    calculate_level_4();
+                    break;
+                default:
+                    console.log("Level not supported yet!");
+            }
+        }
+
+        $(document).ready(function () {
             // JQuery code in here
             console.log("Jquery loaded")
 
@@ -237,26 +244,39 @@
                 }
             })
 
-            // keyup listener
-            $(".skill-input").on("keyup", function () {
-                console.log($(this).val())
+            $("#csvFileInput").on("change", function (event) {
+                var file = event.target.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var csvData = e.target.result;
+                        parseCSV(csvData);
+                    };
+                    reader.readAsText(file);
+                }
+            });
 
-            })
 
-            //csv file listener
-            $(document).ready(function () {
-                // Event listener for file input change
-                $("#csvFileInput").on("change", function (event) {
-                    var file = event.target.files[0];
-                    if (file) {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            var csvData = e.target.result;
-                            parseCSV(csvData);
-                        };
-                        reader.readAsText(file);
-                    }
-                });
+
+            $("#calculate-score-button").click(function () {
+                // Get the text content of the header row
+                var headerText = $("#routine-table-template .header-row:first-child th").text();
+
+                // Split the text by space to extract level and event
+                var parts = headerText.split(" ");
+
+                // Assuming the format is "Level [number] [event] Routine"
+                var level = parts[1]; // Extract the number
+                var event = parts[2]; // Extract the event
+
+                // Now you can use 'level' and 'event' in your calculations
+                // For demonstration, let's log them
+                console.log("Level:", level);
+                console.log("Event:", event);
+
+                calculateScore(event, level);
+
+                // Your calculation logic here
             });
 
         })
