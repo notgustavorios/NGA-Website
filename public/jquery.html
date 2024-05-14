@@ -11,7 +11,12 @@
             background-color: blue;
             color: white;
         }
-
+        #add-routine-table-container {
+            border: 1px solid black;
+            background-color: blue;
+            color: white;
+            text-align: center;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -84,12 +89,50 @@
         #skill-chart-table tr {
             text-transform: uppercase;
         }
+
+        .buttons-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .circle-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            /* Makes the button circular */
+            background-color: blue;
+            margin-right: 10px;
+            /* Adjust as needed */
+            border: none;
+            /* Removes default button border */
+            cursor: pointer;
+            outline: none;
+            /* Removes default focus outline */
+            color: white;
+        }
+
+        .circle-button:hover {
+            opacity: 0.8;
+            /* Adjust opacity on hover as desired */
+        }
+        #add-routine-table-container button {
+            border: 1px solid white;
+            color: white;
+            font-size: larger;
+            background-color: blue;
+        }
+        #add-routine-table-container button:hover {
+            cursor: pointer;
+            background-color: lightblue;
+        }
+        
     </style>
 </head>
 
 <body>
     <div id="routine-tables-container">
-        <table id="routine-table-template" class="editable-table">
+        <table id="routine-table-template">
             <tr class="header-row">
                 <th colspan="3">Level 4 Rings Routine</th>
             </tr>
@@ -115,7 +158,43 @@
     <div id="skill-table-container"></div>
     <div id="fig-skill-table-container"></div>
 
+    <div id="add-routine-table-container">
+        <div class="level-selection">
+            <h2>Choose a Level</h2>
+            <div class="level-grid">
+                <button class="level-button">Level 1</button>
+                <button class="level-button">Level 2</button>
+                <button class="level-button">Level 3</button>
+                <button class="level-button">Level 4</button>
+                <button class="level-button">Level 5</button>
+                <button class="level-button">Level 6</button>
+                <button class="level-button">Level 7</button>
+                <button class="level-button">Level 8</button>
+                <button class="level-button">Level 9</button>
+                <button class="level-button">Level 10</button>
+            </div>
+        </div>
+        
+        <div class="event-selection">
+            <h2>Choose an Event</h2>
+            <div class="event-grid">
+                <button class="event-button">FX</button>
+                <button class="event-button">PH</button>
+                <button class="event-button">SR</button>
+                <button class="event-button">VT</button>
+                <button class="event-button">PB</button>
+                <button class="event-button">HB</button>
+            </div>
+        </div>
+        <button id="submit-routine-request"></button>
+    </div>
+
     <input type="file" id="csvFileInput" accept=".csv">
+
+    <div class="buttons-container">
+        <button class="circle-button" id="add-routine-button">+</button>
+        <button class="circle-button" id="delete-routine-button">-</button>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
@@ -143,7 +222,6 @@
             }
             return "IV";
         }
-
         function createTable(event, elementGroup) {
             var newTable = $("<table class='skill-table'></table>");
 
@@ -189,25 +267,24 @@
             }
         }
         function calculate_level_4() {
-            
+
             var skills = $("#routine-table-template tr:not(.header-row):not(.add-row)"); // only the skills
-            
+
             var score = 10.0;
             var difficulty = 0.0;
             const elementGroups = new Set();
             const skill_names = new Set();
 
             skills.each(function () {
-                skill_names.add($(this).find("td").eq(0).text()); 
-                elementGroups.add($(this).find("td").eq(2).text()); 
+                skill_names.add($(this).find("td").eq(0).text());
+                elementGroups.add($(this).find("td").eq(2).text());
 
                 var difficultyText = $(this).find("td").eq(1).text();
                 difficulty += parseFloat(difficultyText);
             });
 
             // missing element group deductions
-            switch(elementGroups.size)
-            {
+            switch (elementGroups.size) {
                 case 0:
                     console.log("Missing 4 element groups. Routine has no value");
                     score = 0;
@@ -229,8 +306,7 @@
             }
 
             // short routine deductions
-            switch(skill_names.size)
-            {
+            switch (skill_names.size) {
                 case 0:
                     score = 0;
                     console.log("Short routine deduction applied");
@@ -259,10 +335,9 @@
                     console.log("Met minumim 6 skills requirement");
                     break;
             }
-            
+
             // missing fig requirement
-            if(difficulty < 0.1)
-            {
+            if (difficulty < 0.1) {
                 score -= 0.5;
                 console.log("Missing FIG 'A' requirement");
             }
@@ -306,6 +381,7 @@
                 $("#routine-tables-container").show();
             });
 
+
             // Delete skill row
             $("#delete-skill-button").click(() => {
                 console.log("delete button was clicked")
@@ -329,8 +405,6 @@
                 }
             });
 
-
-
             $("#calculate-score-button").click(function () {
                 // Get the text content of the header row
                 var headerText = $("#routine-table-template .header-row:first-child th").text();
@@ -351,6 +425,11 @@
 
                 // Your calculation logic here
             });
+
+            $("#add-routine-button").on("click", function() {
+                $("#routine-tables-container").hide();
+                $("#add-routine-table").show();
+            })
 
         })
 
