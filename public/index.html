@@ -239,18 +239,43 @@
 
             // Extract event from the first line of CSV
             if (lines.length > 0) {
-                var header = lines[1].split(",");
+                var header = lines[0].split(",");
                 if (header.length === 4) {
                     event = header[3].trim();
                 }
             }
 
+            function parseCSVRow(row) {
+                var result = [];
+                var inQuotes = false;
+                var value = "";
+
+                for (var i = 0; i < row.length; i++) {
+                    var char = row[i];
+
+                    if (char === '"' || char === '“' || char === '”') {
+                        inQuotes = !inQuotes;
+                        continue; // Skip the quote character
+                    }
+
+                    if (char === ',' && !inQuotes) {
+                        result.push(value.trim());
+                        value = "";
+                    } else {
+                        value += char;
+                    }
+                }
+                result.push(value.trim());
+
+                return result;
+            }
+
             for (var i = 1; i < lines.length; i++) { // Start from index 1 to skip header line
-                var row = lines[i].split(",");
+                var row = parseCSVRow(lines[i]);
                 if (row.length === 4) {
-                    var skill = row[0].trim();
-                    var difficulty = row[2].trim();
-                    var group = parseInt(row[1].trim()); // Convert element group to integer
+                    var skill = row[0];
+                    var difficulty = row[2];
+                    var group = parseInt(row[1]);
 
                     // Create table if it doesn't exist for this element group
                     if (!$(".skill-table[data-group='" + group + "']").length) {
