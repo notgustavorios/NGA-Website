@@ -292,13 +292,14 @@
             }
         }
 
-        // Function to calculate score for level 4 routines
-        function calculate_level_4(routineTable) {
+        // Function to calculate score for level 1-6 routines
+        function calculate_NGA(routineTable,_level) {
             var skills = routineTable.find("tr:not(.header-row):not(.add-row)"); // only the skills
             var score = 10.0;
             var difficulty = 0.0;
             const elementGroups = new Set();
             const skill_names = new Set();
+            _level = Number(_level);
 
             skills.each(function () {
                 skill_names.add($(this).find("td").eq(0).text());
@@ -306,6 +307,8 @@
                 var difficultyText = $(this).find("td").eq(1).text();
                 difficulty += parseFloat(difficultyText);
             });
+
+            console.log("Calculating score for level " + _level + " routine");
 
             // missing element group deductions
             switch (elementGroups.size) {
@@ -359,13 +362,34 @@
                     console.log("Met minimum 6 skills requirement");
                     break;
             }
-
-            // missing FIG requirement
-            if (difficulty < 0.1) {
-                score -= 0.5;
-                console.log("Missing FIG 'A' requirement");
+            // check for missing FIG values
+            switch(_level)
+            {
+                case 1:
+                    console.log("FIG requirement met");
+                    break;
+                case 2:
+                    console.log("FIG requirement met");
+                    break;
+                case 3:
+                    console.log("FIG requirement met");
+                    break;
+                case 4:
+                    if (difficulty < 0.1) {
+                    score -= 0.5;
+                    console.log("Missing FIG 'A' requirement");
+                    }
+                    break;
+                case 5:
+                    if (difficulty < 0.2) {
+                        score -= 0.5;
+                        console.log("Missing FIG 'A' requirement");
+                        }
+                    break;
+                default:
+                    console.log("Level not supported yet! Updates coming soon..");
+                    break;
             }
-
             console.log("Total Difficulty:", difficulty);
             score += difficulty;
             console.log(score);
@@ -373,12 +397,9 @@
 
         // Function to calculate score based on level
         function calculateScore(_event, _level, routineTable) {
-            switch (_level) {
-                case "4":
-                    calculate_level_4(routineTable);
-                    break;
-                default:
-                    console.log("Level not supported yet!");
+            if(_level)
+            {
+                calculate_NGA(routineTable, _level);
             }
         }
 
