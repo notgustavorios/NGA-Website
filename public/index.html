@@ -291,9 +291,17 @@
                 }
             }
         }
+        function display_score(routineTable, scoreString) {
+            // Find the last row in the routineTable
+            var lastRow = routineTable.find("tr:last");
+
+            // Insert the new row before the last row
+            lastRow.before("<tr><td>" + scoreString);
+        }
+
 
         // Function to calculate score for level 1-6 routines
-        function calculate_NGA(routineTable,_level) {
+        function calculate_NGA(routineTable, _level) {
             var skills = routineTable.find("tr:not(.header-row):not(.add-row)"); // only the skills
             var score = 10.0;
             var difficulty = 0.0;
@@ -363,8 +371,7 @@
                     break;
             }
             // check for missing FIG values
-            switch(_level)
-            {
+            switch (_level) {
                 case 1:
                     console.log("FIG requirement met");
                     break;
@@ -376,15 +383,15 @@
                     break;
                 case 4:
                     if (difficulty < 0.1) {
-                    score -= 0.5;
-                    console.log("Missing FIG 'A' requirement");
+                        score -= 0.5;
+                        console.log("Missing FIG 'A' requirement");
                     }
                     break;
                 case 5:
                     if (difficulty < 0.2) {
                         score -= 0.5;
                         console.log("Missing FIG 'A' requirement");
-                        }
+                    }
                     break;
                 default:
                     console.log("Level not supported yet! Updates coming soon..");
@@ -393,12 +400,12 @@
             console.log("Total Difficulty:", difficulty);
             score += difficulty;
             console.log(score);
+            display_score(routineTable, score);
         }
 
         // Function to calculate score based on level
         function calculateScore(_event, _level, routineTable) {
-            if(_level)
-            {
+            if (_level) {
                 calculate_NGA(routineTable, _level);
             }
             else {
