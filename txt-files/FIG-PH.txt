@@ -1,287 +1,105 @@
-Skill Name,Element Group,Difficulty,Event
+Name,ElementGroup,Difficulty,Event
 Scissor forward.,1,"0,1",PH
 Scissor forward with travel sideways (also with 1/2 t.,1,"0,2",PH
-,1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
 Scissor forward with ½ t.,1,"0,1",PH
 Double scissor fwd. (¼ t. fwd. a. ¼ t. bwd.).,1,"0,2",PH
 Double scissor fwd. (¼ t. fwd. a. ¼ t. bwd.) with travel sideways.,1,"0,3",PH
 Double scissor forward sideways from one end to the other (3/3). (Mikulak),1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
-,1,"0,1",PH
-,1,"0,2",PH
 Double Scissor fwd. with travel sideways through handstand. (Stepanyan),1,"0,3",PH
-,1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
-,1,"0,1",PH
 Leg cut or undercut bwd. through handstand and lower to support with straddle legs.,1,"0,2",PH
-,1,"0,3",PH
 "Scissor fwd. with ¼ t. through handstand on 1 pommel, lower to support with straddle legs on the other arm (with legs changing) (Li Ning) (Bryan)",1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
 Scissor backward.,1,"0,1",PH
 Scissor bwd. with travel sideways (also with ½ t.).,1,"0,2",PH
 Scissor bwd. with hop sideways from one end to the other (1-2 to 4-5).,1,"0,3",PH
-,1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
 Scissor backward with ½ turn. 32.,1,"0,1",PH
 Double scissor bwd. (¼ t. fwd. a. ¼ t. bwd).,1,"0,2",PH
-,1,"0,3",PH
-,1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
-,1,"0,1",PH
-,1,"0,2",PH
 "Swing bwd. w. ¼ t. through handstand on 1 pommel (also with ¼ t. after), lower to support with straddle legs (with legs changing)",1,"0,3",PH
-,1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
-,1,"0,1",PH
-,1,"0,2",PH
-,1,"0,3",PH
-,1,"0,4",PH
-,1,"0,5",PH
-,1,"0,6",PH
 Any circle or flair in side support. (Thomas),2,"0,1",PH
 Circle in side support outside pommels or between the pommels.,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 Circles in cross support frontways on end.,2,"0,1",PH
 Circles in cross support on 1 pommel (from or to ¼ t. fwd.).,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 Circles in cross support rearways on end.,2,"0,1",PH
 Circles in cross support between the pommels.,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
-,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 Any ¼ spindle,2,"0,1",PH
 Any ½ spindle (Keikha 2),2,"0,2",PH
-,2,"0,3",PH
 Any side support pommel between hands 1/1 spindle w. legs straddle inside max. 2 circles.,2,"0,4",PH
 Any side support 1/1 spindle with hand support to the other side and return (max. 2 flairs or circles) (Eichorn),2,"0,5",PH
 Any 1/1 spindle with both pommels between the hands (flair or circle). (Keikha 1) (Keikha 5),2,"0,6",PH
-,2,"0,1",PH
-,2,"0,2",PH
-,2,"0,3",PH
 Any 1/1 spindle within max. 2 circles on the end. (Magyar),2,"0,4",PH
 1/1 spindle w. legs straddle or together on the pommels inside max. 2 circles. (Berki),2,"0,5",PH
 "Cross support, 1/1 spindle with hands between the pommels max. 2 circles.",2,"0,6",PH
-,2,"0,1",PH
 Direct Stöckli A (DSA) on the pommels or pommel between hands.,2,"0,2",PH
-,2,"0,3",PH
 Direct Stöckli A (DSA) outside pommels. (Keikha 3) (Keikha 6),2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
 Direct Stöckli B (DSB).,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
-,2,"0,2",PH
 Flair or circle through handstand (with or without ½ t.) and lower to flair or circle. (Tippelt),2,"0,3",PH
 Flair with hop travel bwd. through handstand and lower to circles or flairs,2,"0,4",PH
-,2,"0,5",PH
 "Reverse Stöckli, DSA or pommel circle straddle through handstand, 3/3 travel (fwd.- bwd), 360° turn to flairs. (Busnari)",2,"0,6",PH
 Double rear (kehr).,2,"0,1",PH
 Kehr with 270° t. on 1 p. (Sohn technique) from cross to side support.,2,"0,2",PH
 Kehr with 270° t. on 1 pommel (Sohn technique) from side to cross support. (Bertoncelj),2,"0,3",PH
 Kehr with 1/1 turn on 1 pommel. (Sohn),2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
 Direct Tramlot.,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
 Reverse Stöckli 180° (or 270° from one pommel) turn in one circle.,2,"0,2",PH
 Reverse Stöckli with 270° t. (Bezugo technique) from 2 pommels to cross support on 1 pommel (Davtyan),2,"0,3",PH
-,2,"0,4",PH
 Reverse Stöckli with 360° t. on 1 pommel. (Bezugo),2,"0,5",PH
-,2,"0,6",PH
 Schwabenflank.,2,"0,1",PH
 Czechkehre on the pommels or pommel between hands.,2,"0,2",PH
-,2,"0,3",PH
 Czechkehre outside pommels (Pinheiro),2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 "Wendeswing fwd. with ½ t. to support fwd. on the end, from side support using 1 or 2 pommels.",2,"0,1",PH
-,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 Russian wendeswing with 180° or 270°.,2,"0,1",PH
-,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 Russian wendeswing with 360° or 540°.,2,"0,1",PH
 Russian wendeswing with 720° or 900°.,2,"0,2",PH
 Russian wendeswing with 1080° or more.,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 "On the leather, Russian wendeswing with 180°, or 270° also with travel.",2,"0,1",PH
-,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 "On the leather, Russian wendeswing with 360° or 540°.",2,"0,1",PH
 "On the leather, Russian wendeswing with 720° or 900°.",2,"0,2",PH
 "On the leather, Russian wendeswing with 1080° or more.",2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
 Russian wendeswing with 180° or 270° on 1 pommel or between the pommels.,2,"0,2",PH
 Russian wendeswing with 360° or 540° on 1 pommel or between the pommels.,2,"0,3",PH
 720° or 900° Russian wendeswing on 1 pommel or between the pommels.,2,"0,4",PH
 1080° Russian wendeswing or more on 1 pommel or between the pommels.,2,"0,5",PH
-,2,"0,6",PH
-,2,"0,1",PH
-,2,"0,2",PH
-,2,"0,3",PH
-,2,"0,4",PH
-,2,"0,5",PH
-,2,"0,6",PH
 Circles with any travel in side support (1/3) (also with ¼ t.).,3,"0,1",PH
 Circles with any travel in side support (3/3).,3,"0,2",PH
 "Any travel in side support (3/3), hands between pommels.",3,"0,3",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
 Circles with any hop travel in side support (1/3),3,"0,2",PH
 Circles with any hop travel 2x in side support (3/3).,3,"0,3",PH
-,3,"0,4",PH
 "From side support beside the pommel, travel hop over 2 pommels to support fwd on other end (1-1 to 5-5). (Yamawaki)",3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
 Travel fwd. or bwd. with ¼ spindle to side support on 2 pommels.,3,"0,2",PH
 All travels with ½ spindle in side support.,3,"0,3",PH
-,3,"0,4",PH
 From an end side travel with 2x ½ spindle to other end.,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
 Any travel fwd. 3/3 with ½ Spindle from one pommel over the other pommel. (Nin Reyes) (Titov),3,"0,4",PH
 Travel 3/3 over both pommels with ½ Spindle. (Nin Reyes 2) (Keikha 4),3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
-,3,"0,4",PH
 Any 3/3 travel in flairs with 1/1 Spindle inside 2 circles. (Urzica 2) (Burkhart),3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
 Travel fwd. in cross support (1/2 or 2/3).,3,"0,2",PH
 "Travel fwd. in cross support with support on leather, pommel, pommel, leather (3/3) (1-2-4-5).",3,"0,3",PH
 Any other travel fwd. in cross support to other end (3/3). (Magyar),3,"0,4",PH
 Travel forward in cross support over both pommels (also with hop). (Driggs),3,"0,5",PH
-,3,"0,6",PH
 Travel bwd. in cross support from one horse part or pommel to another (⅓).,3,"0,1",PH
 Travel bwd. in cross support (1/2 or 2/3).,3,"0,2",PH
 "Travel bwd. in cross sup with support on leather, pommel, pommel, leather (3/3) (5-4-2-1).",3,"0,3",PH
 Any other travel bwd. in cross support to other end (3/3). (Sivado),3,"0,4",PH
 Travel backward in cross support over both pommels (also with hop). (Kurbanov) (Reid),3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
 "Kehre fwd., reverse Stöckli, kehre fwd. (Moguilny)",3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
 "Kehre bwd., kehre fwd., kehre bwd. (Belenki)",3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
 "From support on 1 pommel, Russian wendeswing fwd. to other end without support on or between the pommels (side to side support, side to cross support).",3,"0,3",PH
 "From support on end, Russian wendeswing fwd. to other end without support on or between the pommels (side to side, side to cross, cross to side, cross to cross). (Tong Fei)",3,"0,4",PH
 "On the leather, from cross support, Russian wendeswing with 360° or more over both pommels. (Vammen)",3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
 "From support 1-2, 3/3 travel in Russian type wendeswing with 630° or more turning.",3,"0,4",PH
 Any 3/3 travel in Russian type wendeswing with 720° or more turning. (Wu Guonian),3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
 Any Russian wendeswing with 360° t. and 3/3 travel. (Roth),3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
 Reverse Stöckli from cross support on end to the far pommel (Romero),3,"0,3",PH
 Reverse Stöckli from cross support on one end to the other. (Abu Alsoud),3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
-,3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
-,3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
-,3,"0,1",PH
-,3,"0,2",PH
-,3,"0,3",PH
-,3,"0,4",PH
-,3,"0,5",PH
-,3,"0,6",PH
 Wende from circle (also from Russian wendeswing 180° or 270°),4,"0,1",PH
 Chaguinian to wende.,4,"0,2",PH
-,4,"0,3",PH
 "From side support on end, circle or flair to handstand and travel 3/3 with 450° or more turn. (Kolyvanov)",4,"0,4",PH
 DSA to handstand 3/3 with 450° or more turn.,4,"0,5",PH
-,4,"0,6",PH
 "On the end, Russian wendeswing with 360° or 540°",4,"0,1",PH
 "On the end, Russian wendeswing with 720° or 900°.",4,"0,2",PH
 "On the end, Russian wendeswing with 1080° or more.",4,"0,3",PH
 "From pommels, circle with 1/4 turn to Russian wenderswing 270° on one pommel to handstand. (Dolidze)",4,"0,4",PH
-,4,"0,5",PH
-,4,"0,6",PH
 From side support wendeswing fwd. with ½ t. to support followed by wende.,4,"0,1",PH
-,4,"0,2",PH
 "DSA, reverse Stöckli or circle on one pommel through handstand.",4,"0,3",PH
 DSA with hop bwd. through handstand on other end. (Jessen) (Loos),4,"0,4",PH
-,4,"0,5",PH
-,4,"0,6",PH
-,4,"0,1",PH
 Circle or flair through handstand (also with ¾ t. with or without travel).,4,"0,2",PH
 Circle or flair with hop travel bwd. through handstand.,4,"0,3",PH
 180° Russian from one end of the horse to the other end through handstand to dismount (Pellerin),4,"0,4",PH
-,4,"0,5",PH
-,4,"0,6",PH
