@@ -1,3 +1,4 @@
+Name,ElementGroup,Difficulty,Event
 From hdst. lower to L-sit or strad. L-sit (2 s.).,1,"0,1",FX
 V-sit (2 s.).,1,"0,2",FX
 V-sit with legs horizontal. (2 s.). (Manna),1,"0,3",FX

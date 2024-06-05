@@ -13,13 +13,13 @@ Handstand (2 s.).,1,"0,1",FX
 Press or lower or swing to Japanese hdst. (2 s.).,1,"0,2",FX
 From split press to Japanese handstand (2 s.).,1,"0,3",FX
 "Support lever, legs straddle (2 s.).",1,"0,1",FX
-Support lever (2 s.). / Swallow (2 s.).,1,,FX
+Support lever (2 s.). / Swallow (2 s.).,1,"0,3",FX
 ½ or 1/1 turn in handstand or to handstand.,1,"0,1",FX
 From straddled support lever (2 s.) press hdst. (2 s.),1,"0,2",FX
-From support scale 2 s. press handstand (2 s.). From Swallow 2 s. press to Japanese hdst. (2 s.). (Alvariño),1,,FX
+From support scale 2 s. press handstand (2 s.). From Swallow 2 s. press to Japanese hdst. (2 s.). (Alvariño),1,"0,4",FX
 "From L-sit, etc., turn over bwd. to stand.",1,"0,1",FX
 Endo roll to handstand (2 s.). * **,1,"0,2",FX
-Endo roll piked to handstand (2 s.). Also final phase with straddle. *,1,,FX
+Endo roll piked to handstand (2 s.). Also final phase with straddle. *,1,"0,3",FX
 Forward walkover.,1,"0,1",FX
 Cross or side split (stop required).,1,"0,1",FX
 Any standing scale (2 s.).,1,"0,1",FX
@@ -89,7 +89,7 @@ Salto fwd. str. with 3/1 t. (Shirai 2),4,"0,6",FX
 Salto backwards str. w. 1/1 t,4,"0,2",FX
 Salto bwd. str. with 3/2 t. or 2/1 t.,4,"0,3",FX
 Salto bwd. str. with 5/2 t.,4,"0,4",FX
-Salto bwd. str. with 7/2 t (González)4,,"0,5",FX
+Salto bwd. str. with 7/2 t (González)4,4,"0,5",FX
 Salto fwd. str. with 7/2 t. (Goshima) G,4,"0,7",FX
 Salto backwards tucked w. 3/2 t.,4,"0,2",FX
 Salto bwd. str. with 3/1 t.,4,"0,4",FX

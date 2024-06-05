@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutalist Home Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            color: #000;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 2px solid #000;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            font-size: 1.2em;
+            border: 2px solid #000;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="name">Your Name</h1>
+        <p id="description">A brief description about you.</p>
+        <nav>
+            <ul>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="web-apps.html">Web Apps</a></li>
+            </ul>
+        </nav>
+    </div>
+    <script>
+        // You can add any interactivity here if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            const name = "Gustavo Rios";
+            const description = "A brief description about you.";
+            document.getElementById('name').textContent = name;
+            document.getElementById('description').textContent = description;
+        });
+
+    </script>
+</body>
+
+</html>
