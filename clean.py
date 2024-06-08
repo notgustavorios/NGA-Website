@@ -1,29 +1,31 @@
+import os
 import csv
 
-def clean_csv(input_file, output_file):
-    with open(input_file, mode='r', newline='') as infile, open(output_file, mode='w', newline='') as outfile:
-        reader = csv.reader(infile)
-        writer = csv.writer(outfile)
-        
-        # Read header and write it to the output file
-        header = next(reader)
-        writer.writerow(header)
-        
+def replace_commas_in_third_column(input_file, output_file):
+    # wow, we're opening a file. groundbreaking stuff.
+    with open(input_file, mode='r', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        rows = []
         for row in reader:
-            print(f"Original row: {row}")  # Debugging: Print the original row
-            
-            # Strip leading/trailing spaces and any type of quotes from the first element
-            row[0] = row[0].strip().strip('"“”')
-            
-            # Clean the third column by removing quotes and replacing comma with dot
-            row[2] = row[2].strip().strip('"“”').replace(',', '.')
-            
-            print(f"Cleaned row: {row}")  # Debugging: Print the cleaned row
-            
-            writer.writerow(row)
+            if len(row) > 2:
+                row[2] = row[2].replace(',', '.')
+            rows.append(row)
+    
+    # now we write it back because you couldn't figure out how to do it in place
+    with open(output_file, mode='w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(rows)
 
-# Example usage
-input_file = 'csv-files/FIG-FX-updated.csv'  # Path to the input CSV file
-output_file = 'output.csv'  # Path to the output CSV file
-clean_csv(input_file, output_file)
+def clean_csv_files_in_folder(folder_path):
+    if not os.path.isdir(folder_path):
+        print(f"the path {folder_path} is not a directory. maybe check your path?")
+        return
 
+    for filename in os.listdir(folder_path):
+        if filename.endswith(".csv"):
+            input_file = os.path.join(folder_path, filename)
+            output_file = os.path.join(folder_path, f"cleaned_{filename}")
+            replace_commas_in_third_column(input_file, output_file)
+            print(f"cleaned {filename} and saved as cleaned_{filename}")
+
+clean_csv_files_in_folder('/Users/gustavo/Desktop/NGA Routines/cleaned-csv')

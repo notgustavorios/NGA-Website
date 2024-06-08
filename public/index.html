@@ -407,11 +407,9 @@
 
         // Function to calculate score based on level
         function calculateScore(_event, _level, routineTable) {
-            if (_level) {
-                calculate_NGA(routineTable, _level);
-            }
-            else {
-                console.log("Uh oh, that wasn't supposed to happen");
+            switch(_event){
+                case "FX":
+                    console.log("Floor routine");
             }
         }
 
