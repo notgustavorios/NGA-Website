@@ -235,10 +235,6 @@ function resetButtonColors() {
 $(document).ready(function () {
     console.log("JQuery loaded");
 
-    // Hide the skills table and add routine table container by default
-    $("#skill-table-container").hide();
-    $("routine-table-template").hide();
-
     // Event listener for CSV file input
     $("#csvFileInput").on("change", function (event) {
         var file = event.target.files[0];
@@ -254,6 +250,7 @@ $(document).ready(function () {
 
     // Event listener for add routine button
     $("#add-routine-button").on("click", function () {
+
         $("#routine-tables-container").hide();
         $("#add-routine-table-container").show();
     });
@@ -263,6 +260,30 @@ $(document).ready(function () {
 
     // Function to update the submit button text
     function updateSubmitButton() {
+        if(selectedLevel){
+            switch(selectedEvent){
+                case 'FX':
+                    $('#floor').css("display", "block");
+                    break;
+                case 'PH':
+                    $('#pommel').css("display", "block");
+                    break;
+                case 'SR':
+                    $('#rings').css("display", "block");
+                    break;
+                case 'VT':
+                    $('#vault').css("display", "block");
+                    break;
+                case 'PB':
+                    $('#pbars').css("display", "block");
+                    break;
+                case 'HB':
+                    $('#highbar').css("display", "block");
+                    break;
+                default:
+                    break;
+            }
+        }
         if (selectedLevel && selectedEvent) {
             $('#submit-routine-request').text(`Create Level ${selectedLevel} ${selectedEvent} routine table`);
             $('#submit-routine-request').show();
@@ -364,14 +385,6 @@ $(document).ready(function () {
             console.log("Cannot delete the last routine table.");
         }
     });
-
-    $("#btnconsole").on('click', function () {
-        $("input").each(function () {
-            $(this).attr("value", $(this).val());
-        });
-        console.log($('body').html());
-    });
-
     attachEventListeners();
 });
 
