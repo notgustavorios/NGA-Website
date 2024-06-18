@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGA Routine Builder</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #003366; /* Dark blue text */
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button-new-routine {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        .button-new-routine:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        .button-other {
+            background-color: #008CBA; /* Blue */
+            color: white;
+        }
+        .button-other:hover {
+            background-color: #007bb5; /* Darker blue */
+        }
+    </style>
+</head>
+<body>
+    <h1>NGA Routine Builder</h1>
+    <p>To start using the tool, click the button with the '+' on it to create a new routine.</p>
+    <div class="button-container">
+        <button class="button button-new-routine" onclick="location.href='app.html'">+</button>
+        
+    </div>
+</body>
+</html>
