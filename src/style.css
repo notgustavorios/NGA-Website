@@ -57,7 +57,24 @@ td {
     background-color: rgb(135, 135, 135);
     cursor: pointer;
 }
-
+#floor {
+    display: none;
+}
+#pommel {
+    display: none;
+}
+#rings {
+    display: none;
+}
+#vault {
+    display: none;
+}
+#pbars {
+    display: none;
+}
+#highbar {
+    display: none;
+}
 .skill-table th,
 .skill-table td {
     border: 1px solid black;
