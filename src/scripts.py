@@ -28,4 +28,46 @@ def clean_csv_files_in_folder(folder_path):
             replace_commas_in_third_column(input_file, output_file)
             print(f"cleaned {filename} and saved as cleaned_{filename}")
 
-clean_csv_files_in_folder('/Users/gustavo/Desktop/NGA Routines/cleaned-csv')
+#clean_csv_files_in_folder('/Users/gustavo/Desktop/NGA Routines/cleaned-csv')
+
+
+import pandas as pd
+
+# Load the CSV file
+csv_path = '/Users/gustavo/Desktop/NGA Routines/superskills/PB-SS.csv'
+df = pd.read_csv(csv_path)
+
+# HTML structure initialization
+html_output = """
+<div id="skill-table-container">
+    <div id="floor">
+        <table class="skill-table" data-group="1">
+            <tr>
+                <th colspan="3">Non-acrobatic elements -- GRP I </th>
+            </tr>
+            <tr>
+                <th>Skill</th>
+                <th>Difficulty</th>
+                <th>Element Group</th>
+            </tr>
+"""
+
+# Iterate through the dataframe and create rows for each entry
+for index, row in df.iterrows():
+    html_output += f"""
+            <tr class="skill-entry">
+                <td>{row['Name']}</td>
+                <td>{row['Difficulty']}</td>
+                <td>{row['ElementGroup']}</td>
+            </tr>
+    """
+
+# Closing the HTML tags
+html_output += """
+        </table>
+    </div>
+</div>
+"""
+
+# Output the HTML
+print(html_output)
