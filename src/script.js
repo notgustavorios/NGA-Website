@@ -36,21 +36,29 @@ function createTable(event, elementGroup) {
     return newTable;
 }
 
-function display_score(routineTable, scoreString) {
+function display_score(routineTable, score, scoreString) {
+    // Define a class name for the score row
+    var scoreClass = "score-row";
 
-    // Find the last row in the routineTable
-    var lastRow = routineTable.find("tr:last");
+    // Check if a row with the scoreClass already exists
+    if (routineTable.find("tr." + scoreClass).length === 0) {
+        // Find the last row in the routineTable
+        var lastRow = routineTable.find("tr:last");
 
-    // Insert the new row before the last row
-    lastRow.before("<tr><td>" + scoreString);
+        // Insert the new row after the last row with the specified class and colspan 3
+        lastRow.after("<tr class='" + scoreClass + "'><td colspan='3'>" + score + "<br>" + scoreString + "</td></tr>");
+    } else {
+        // Update the text of the existing row with the scoreClass and set colspan 3
+        routineTable.find("tr." + scoreClass).find("td").attr("colspan", "3").html(score + "<br>" + scoreString);
+    }
 }
-
 
 // Function to calculate score for level 1-6 routines
 function calculate_NGA(routineTable, _level) {
-    var skills = routineTable.find("tr:not(.header-row):not(.add-row)"); // only the skills
+    var skills = routineTable.find("tr:not(.header-row):not(.add-row):not(.score-row)"); // only the skills
     var score = 10.0;
     var difficulty = 0.0;
+    var scoreString = "";
     const elementGroups = new Set();
     const skill_names = new Set();
     _level = Number(_level);
@@ -58,96 +66,101 @@ function calculate_NGA(routineTable, _level) {
     skills.each(function () {
         skill_names.add($(this).find("td").eq(0).text());
         elementGroups.add($(this).find("td").eq(2).text());
+
         var difficultyText = $(this).find("td").eq(1).text();
-        difficulty += parseFloat(difficultyText);
+        difficulty += parseFloat(difficultyText) || 0.0; // Ensure difficultyText is parsed correctly
+
+        
     });
 
-    console.log("Calculating score for level " + _level + " routine");
+    scoreString += "Calculating score for level " + _level + " routine.<br>";
 
-    // missing element group deductions
     switch (elementGroups.size) {
         case 0:
-            console.log("Missing 4 element groups. Routine has no value");
+            scoreString += "Missing 4 element groups. Routine has no value.<br>";
             score = 0;
             break;
         case 1:
             score = score - 1.5;
-            console.log("Missing 3 element groups. -1.5 deduction applied");
+            scoreString += "Missing 3 element groups. -1.5 deduction applied.<br>";
             break;
         case 2:
             score = score - 1.0;
-            console.log("Missing 2 element groups. -1.0 deduction applied");
+            scoreString += "Missing 2 element groups. -1.0 deduction applied.<br>";
             break;
         case 3:
             score = score - 0.5;
-            console.log("Missing 1 element group. -0.5 deduction applied");
+            scoreString += "Missing 1 element group. -0.5 deduction applied.<br>";
             break;
         default:
-            console.log("Element groups satisfied");
+            scoreString += "Element groups satisfied.<br>";
     }
 
     // short routine deductions
     switch (skill_names.size) {
         case 0:
             score = 0;
-            console.log("Short routine deduction applied");
+            scoreString += "Short routine (-10) deduction applied.<br>";
             break;
         case 1:
             score -= 7.0;
-            console.log("Short routine deduction applied");
+            scoreString += "Short routine (-7.0) deduction applied.<br>";
             break;
         case 2:
             score -= 6.0;
-            console.log("Short routine deduction applied");
+            scoreString += "Short routine (-6.0) deduction applied.<br>";
             break;
         case 3:
             score -= 5.0;
-            console.log("Short routine deduction applied");
+            scoreString += "Short routine (-5.0) deduction applied.<br>";
             break;
         case 4:
             score -= 4.0;
-            console.log("Short routine deduction applied");
+            scoreString += "Short routine (-4.0) deduction applied.<br>";
             break;
         case 5:
             score -= 3.0;
-            console.log("Short routine deduction applied");
+            scoreString += "Short routine (-3.0) deduction applied.<br>";
             break;
         default:
-            console.log("Met minimum 6 skills requirement");
+            scoreString += "Met minimum 6 skills requirement.<br>";
             break;
     }
+    
     // check for missing FIG values
     switch (_level) {
         case 1:
-            console.log("FIG requirement met");
+            scoreString += "FIG requirement met.<br>";
             break;
         case 2:
-            console.log("FIG requirement met");
+            scoreString += "FIG requirement met.<br>";
             break;
         case 3:
-            console.log("FIG requirement met");
+            scoreString += "FIG requirement met.<br>";
             break;
         case 4:
             if (difficulty < 0.1) {
                 score -= 0.5;
-                console.log("Missing FIG 'A' requirement");
+                scoreString += "Missing FIG 'A' requirement.<br>";
             }
             break;
         case 5:
             if (difficulty < 0.2) {
                 score -= 0.5;
-                console.log("Missing FIG 'A' requirement");
+                scoreString += "Missing FIG 'A' requirement.<br>";
             }
             break;
         default:
-            console.log("Level not supported yet! Updates coming soon..");
+            scoreString += "Level not supported yet! Updates coming soon..<br>";
             break;
     }
-    console.log("Total Difficulty:", difficulty);
+
     score += difficulty;
+    console.log("Total Difficulty:", difficulty);
     console.log(score);
-    display_score(routineTable, score);
+    display_score(routineTable, score, scoreString);
 }
+
 
 // Function to calculate score based on level
 function calculateScore(_event, _level, routineTable) {
@@ -192,7 +205,7 @@ function attachEventListeners() {
     });
 
     $(".delete-skill-button").off().on("click", function () {
-        var rowCount = $(this).closest('table').find("tr:not(.header-row)").length;
+        var rowCount = $(this).closest('table').find("tr:not(.header-row):not(.score-row)").length;
         if (rowCount >= 2) {
             $(this).closest('table').find("tr:not(.header-row)").eq(rowCount - 2).remove();
         } else {
@@ -257,8 +270,8 @@ $(document).ready(function () {
 
     // Function to update the submit button text
     function updateSubmitButton() {
-        if(selectedLevel){
-            switch(selectedEvent){
+        if (selectedLevel) {
+            switch (selectedEvent) {
                 case 'FX':
                     $('#floor').css("display", "block");
                     break;
