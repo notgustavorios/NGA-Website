@@ -203,6 +203,62 @@ function attachEventListeners() {
         currentRoutineTable = $(this).closest('table');
         $("#routine-tables-container").hide();
         $("#skill-table-container").show();
+
+
+        const table = $(this).closest('.routine-table');
+        const headerText = table.find('th').first().text();
+        const event = headerText.split(' ')[2]; // Assuming the format is "Level Event Routine"
+        console.log(`Add skill button clicked in event: ${event}`);
+        switch(event){
+            case "FX":
+                $("#pommel").hide();
+                $("#rings").hide();
+                $("#vault").hide();
+                $("#pbars").hide();
+                $("#highbar").hide();
+                break;
+            case "PH":
+                $("#floor").hide();
+                $("#rings").hide();
+                $("#vault").hide();
+                $("#pbars").hide();
+                $("#highbar").hide();
+                break;
+            case "SR":
+                $("#floor").hide();
+                $("#pommel").hide();
+                $("#vault").hide();
+                $("#pbars").hide();
+                $("#highbar").hide();
+                break;
+            case "VT":
+                $("#floor").hide();
+                $("#pommel").hide();
+                $("#rings").hide();
+                $("#pbars").hide();
+                $("#highbar").hide();
+                break;
+            case "PB": 
+                $("#floor").hide();
+                $("#pommel").hide();
+                $("#rings").hide();
+                $("#vault").hide();
+                $("#highbar").hide();
+                break;
+            case "HB":
+                $("#floor").hide();
+                $("#pommel").hide();
+                $("#rings").hide();
+                $("#vault").hide();
+                $("#pbars").hide();
+                break;
+            default:
+                break;
+        }
+
+        
+
+
     });
 
     $(".delete-skill-button").off().on("click", function () {
