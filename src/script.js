@@ -199,6 +199,7 @@ function createRoutineTable(level, event) {
 // Function to attach event listeners to buttons
 function attachEventListeners() {
     $(".add-skill-button").off().on("click", function () {
+        $(".buttons-container").hide();
         currentRoutineTable = $(this).closest('table');
         $("#routine-tables-container").hide();
         $("#skill-table-container").show();
@@ -229,6 +230,7 @@ function attachEventListeners() {
         addSkill(skillName, skillDifficulty, skillElementGroup);
         $("#skill-table-container").hide();
         $("#routine-tables-container").show();
+        $(".buttons-container").show();
     });
 }
 

@@ -133,3 +133,10 @@ td {
     background-color: #4CAF50 !important;
     color: white;
 }
+.event-grid {
+    margin-bottom: 1%;
+}
+
+#submit-routine-request {
+    margin-bottom: 1%;
+}
