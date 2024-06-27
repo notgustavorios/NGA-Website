@@ -255,10 +255,6 @@ function attachEventListeners() {
             default:
                 break;
         }
-
-        
-
-
     });
 
     $(".delete-skill-button").off().on("click", function () {
