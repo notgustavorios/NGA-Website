@@ -289,66 +289,7 @@ $(document).ready(function () {
             $('#submit-routine-request').show();
         }
     }
-    function parseCSV(csv) {
-        var lines = csv.split("\n");
-        var event = "";
-
-        // Extract event from the first line of CSV
-        if (lines.length > 0) {
-            var header = lines[0].split(",");
-            if (header.length === 4) {
-                event = header[3].trim();
-            }
-        }
-
-        function parseCSVRow(row) {
-            var result = [];
-            var inQuotes = false;
-            var value = "";
-
-            for (var i = 0; i < row.length; i++) {
-                var char = row[i];
-
-                if (char === '"' || char === '“' || char === '”') {
-                    inQuotes = !inQuotes;
-                    continue; // Skip the quote character
-                }
-
-                if (char === ',' && !inQuotes) {
-                    result.push(value.trim());
-                    value = "";
-                } else {
-                    value += char;
-                }
-            }
-            result.push(value.trim());
-
-            return result;
-        }
-
-        for (var i = 1; i < lines.length; i++) { // Start from index 1 to skip header line
-            var row = parseCSVRow(lines[i]);
-            if (row.length === 4) {
-                var skill = row[0];
-                var difficulty = row[2];
-                var group = parseInt(row[1]);
-
-                // Create table if it doesn't exist for this element group
-                if (!$(".skill-table[data-group='" + group + "']").length) {
-                    var table = createTable(event, group);
-                    table.attr("data-group", group); // Set data-group attribute for identification
-                } else {
-                    // Get existing table for this element group
-                    var table = $(".skill-table[data-group='" + group + "']");
-                }
-
-                // Append row to the table
-                table.append("<tr class='skill-entry'><td>" + skill + "</td><td>" + difficulty + "</td><td>" + group + "</td></tr>");
-            }
-        }
-    }
-
-
+    
     // Event listener for level buttons
     $('.level-button').click(function () {
         $('.level-button').removeClass('active');
