@@ -57,24 +57,31 @@ td {
     background-color: rgb(135, 135, 135);
     cursor: pointer;
 }
+
 #floor {
     display: none;
 }
+
 #pommel {
     display: none;
 }
+
 #rings {
     display: none;
 }
+
 #vault {
     display: none;
 }
+
 #pbars {
     display: none;
 }
+
 #highbar {
     display: none;
 }
+
 .skill-table th,
 .skill-table td {
     border: 1px solid black;
@@ -133,10 +140,41 @@ td {
     background-color: #4CAF50 !important;
     color: white;
 }
+
 .event-grid {
     margin-bottom: 1%;
 }
 
 #submit-routine-request {
     margin-bottom: 1%;
+}
+
+@media print {
+
+    /* Ensure background and text are black and white */
+    body {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .colorful-element {
+        color: black !important;
+        background-color: white !important;
+    }
+
+    /* Additional styles for other elements can be added here */
+    /* Remove any other colorful styles */
+    * {
+        color: black !important;
+        background-color: white !important;
+        border-color: black !important;
+    }
+}
+
+.title {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid black;
 }

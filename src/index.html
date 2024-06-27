@@ -1,54 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brutalist Home Page</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background-color: #f4f4f4;
             font-family: Arial, sans-serif;
-            color: #000;
-            text-align: center;
-            padding: 50px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
+            margin: 0;
+            background-color: #f0f0f0;
             padding: 20px;
-            border: 2px solid #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.5em;
+        .header {
+            text-align: center;
             margin-bottom: 40px;
         }
-
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.5em;
+            color: #666;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            justify-content: center; /* Center the grid horizontally */
+            width: 100%;
+            max-width: 1200px; /* Optional: set a max width for better centering */
+        }
+        .card {
+            position: relative;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-description {
+            display: none;
+            font-size: 14px;
+            color: #666;
+        }
+        .card:hover .card-description {
+            display: block;
+        }
         nav ul {
             list-style: none;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
         }
-
         nav ul li {
             display: inline;
-            margin: 0 10px;
         }
-
         nav ul li a {
             text-decoration: none;
             color: #000;
@@ -57,37 +81,43 @@
             padding: 10px 20px;
             transition: background-color 0.3s, color 0.3s;
         }
-
         nav ul li a:hover {
             background-color: #000;
             color: #fff;
         }
     </style>
+    
 </head>
-
 <body>
-    <div class="container">
+    <div class="header">
         <h1 id="name">Your Name</h1>
         <p id="description"></p>
-        <nav>
-            <ul>
-                <li><a href="https://gustavofleek.wordpress.com/author/gustavorioslife/">Blog</a></li>
-                <li><a href="page.html">Web Apps</a></li>
-                <li><a href="https://www.youtube.com/@Gustavofleek/videos">Videos</a></li>
-                <li><a href="https://github.com/notgustavorios">Github</a></li>
-            </ul>
-        </nav>
+    </div>
+    <div class="container">
+        <div class="card" onclick="location.href='cards.html'">
+            <div class="card-title">Web Apps</div>
+            <div class="card-description">My <i><strong>free</strong></i> web apps</div>
+        </div>
+        <div class="card" onclick="location.href='https://gustavofleek.wordpress.com/author/gustavorioslife/'">
+            <div class="card-title">Blog</div>
+            <div class="card-description">This the blog</div>
+        </div>
+        <div class="card" onclick="location.href='https://www.youtube.com/@Gustavofleek/videos'">
+            <div class="card-title">Videos</div>
+            <div class="card-description">These the videos</div>
+        </div>
+        <div class="card" onclick="location.href='https://github.com/notgustavorios'">
+            <div class="card-title">Github</div>
+            <div class="card-description">Employers only</div>
+        </div>
     </div>
     <script>
-        // You can add any interactivity here if needed
         document.addEventListener('DOMContentLoaded', () => {
             const name = "Gustavo Rios";
             const description = "20 yr. old gymnastics coach CS at ASU. Welcome to my website";
             document.getElementById('name').textContent = name;
             document.getElementById('description').textContent = description;
         });
-
     </script>
 </body>
-
 </html>

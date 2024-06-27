@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Apps Directory</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+            padding: 20px;
+            
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            
+        }
+        .card {
+            position: relative;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-description {
+            display: none;
+            font-size: 14px;
+            color: #666;
+        }
+        .card:hover .card-description {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card" onclick="location.href='page.html'">
+            <div class="card-title">NGA Routine Builder</div>
+            <div class="card-description">This web app helps you construct and evaluate NGA routines easily.</div>
+        </div>
+        <div class="card" onclick="location.href='https://chatgpt.com/g/g-AfGOb4vGk-mr-shaw'">
+            <div class="card-title">MR. SHAW</div>
+            <div class="card-description">Expert guide for men's artistic gymnastics judging under USAG and JDP rules. Using a GPT, so many answers are hallucinated. Fun to mess around with.</div>
+        </div>
+        <div class="card" onclick="location.href='app3.html'">
+            <div class="card-title">Unfinished Web App 3</div>
+            <div class="card-description">Refer to Web App 2 description</div>
+        </div>
+        <!-- Add more cards as needed -->
+    </div>
+</body>
+</html>
