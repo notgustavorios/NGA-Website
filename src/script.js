@@ -151,10 +151,7 @@ function calculate_NGA(routineTable, _level) {
 
 // Function to calculate score based on level
 function calculateScore(_event, _level, routineTable) {
-    switch (_event) {
-        case "FX":
-            console.log("Floor routine");
-    }
+    calculate_NGA(routineTable, _level);
 }
 
 // Function to create a new routine table
@@ -289,7 +286,7 @@ $(document).ready(function () {
             $('#submit-routine-request').show();
         }
     }
-    
+
     // Event listener for level buttons
     $('.level-button').click(function () {
         $('.level-button').removeClass('active');
