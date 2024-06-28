@@ -12,7 +12,6 @@ function addSkill(_name, _difficulty, _elementGroup) {
     currentRoutineTable.find(".add-row").before(newRow);
 }
 
-
 // Function to convert an integer to a Roman numeral
 function toRomanNumeral(integer) {
     if (integer === 1) {
@@ -30,8 +29,16 @@ function toRomanNumeral(integer) {
 // Function to create a new skill table
 function createTable(event, elementGroup) {
     var newTable = $("<table class='skill-table'></table>");
-    newTable.append("<tr><th colspan='3'>" + event + " -- Super Skills Chart -- GRP " + toRomanNumeral(elementGroup) + "</th></tr>");
-    newTable.append("<tr><th>Skill</th><th>Difficulty</th><th>Element Group</th></tr>");
+    newTable.append(
+        "<tr><th colspan='3'>" +
+        event +
+        " -- Super Skills Chart -- GRP " +
+        toRomanNumeral(elementGroup) +
+        "</th></tr>"
+    );
+    newTable.append(
+        "<tr><th>Skill</th><th>Difficulty</th><th>Element Group</th></tr>"
+    );
     $("#skill-table-container").append(newTable);
     return newTable;
 }
@@ -46,16 +53,30 @@ function display_score(routineTable, score, scoreString) {
         var lastRow = routineTable.find("tr:last");
 
         // Insert the new row after the last row with the specified class and colspan 3
-        lastRow.after("<tr class='" + scoreClass + "'><td colspan='3'>" + score + "<br>" + scoreString + "</td></tr>");
+        lastRow.after(
+            "<tr class='" +
+            scoreClass +
+            "'><td colspan='3'>" +
+            score +
+            "<br>" +
+            scoreString +
+            "</td></tr>"
+        );
     } else {
         // Update the text of the existing row with the scoreClass and set colspan 3
-        routineTable.find("tr." + scoreClass).find("td").attr("colspan", "3").html(score + "<br>" + scoreString);
+        routineTable
+            .find("tr." + scoreClass)
+            .find("td")
+            .attr("colspan", "3")
+            .html(score + "<br>" + scoreString);
     }
 }
 
 // Function to calculate score for level 1-6 routines
 function calculate_NGA(routineTable, _level) {
-    var skills = routineTable.find("tr:not(.header-row):not(.add-row):not(.score-row)"); // only the skills
+    var skills = routineTable.find(
+        "tr:not(.header-row):not(.add-row):not(.score-row)"
+    ); // only the skills
     var score = 10.0;
     var difficulty = 0.0;
     var scoreString = "";
@@ -69,8 +90,6 @@ function calculate_NGA(routineTable, _level) {
 
         var difficultyText = $(this).find("td").eq(1).text();
         difficulty += parseFloat(difficultyText) || 0.0; // Ensure difficultyText is parsed correctly
-
-        
     });
 
     scoreString += "Calculating score for level " + _level + " routine.<br>";
@@ -126,7 +145,7 @@ function calculate_NGA(routineTable, _level) {
             scoreString += "Met minimum 6 skills requirement.<br>";
             break;
     }
-    
+
     // check for missing FIG values
     switch (_level) {
         case 1:
@@ -161,7 +180,6 @@ function calculate_NGA(routineTable, _level) {
     display_score(routineTable, score, scoreString);
 }
 
-
 // Function to calculate score based on level
 function calculateScore(_event, _level, routineTable) {
     calculate_NGA(routineTable, _level);
@@ -192,112 +210,129 @@ function createRoutineTable(level, event) {
                         </tr>
                     </table>
                 `;
-    $('#routine-tables-container').append(tableHTML);
+    $("#routine-tables-container").append(tableHTML);
     attachEventListeners();
 }
 
 // Function to attach event listeners to buttons
 function attachEventListeners() {
-    $(".add-skill-button").off().on("click", function () {
-        $(".buttons-container").hide();
-        currentRoutineTable = $(this).closest('table');
-        $("#routine-tables-container").hide();
-        $("#skill-table-container").show();
+    $(".add-skill-button")
+        .off()
+        .on("click", function () {
+            $(".buttons-container").hide();
+            currentRoutineTable = $(this).closest("table");
+            $("#routine-tables-container").hide();
+            $("#skill-table-container").show();
 
+            const table = $(this).closest(".routine-table");
+            const headerText = table.find("th").first().text();
+            const event = headerText.split(" ")[2]; // Assuming the format is "Level Event Routine"
+            console.log(`Add skill button clicked in event: ${event}`);
+            switch (event) {
+                case "FX":
+                    $("floor").toggle();
+                    $("#pommel").toggle();
+                    $("#rings").toggle();
+                    $("#vault").toggle();
+                    $("#pbars").toggle();
+                    $("#highbar").toggle();
+                    break;
+                case "PH":
+                    $("floor").toggle();
+                    $("#pommel").toggle();
+                    $("#rings").toggle();
+                    $("#vault").toggle();
+                    $("#pbars").toggle();
+                    $("#highbar").toggle();
+                    break;
+                case "SR":
+                    $("floor").toggle();
+                    $("#pommel").toggle();
+                    $("#rings").toggle();
+                    $("#vault").toggle();
+                    $("#pbars").toggle();
+                    $("#highbar").toggle();
+                    break;
+                case "VT":
+                    $("floor").toggle();
+                    $("#pommel").toggle();
+                    $("#rings").toggle();
+                    $("#vault").toggle();
+                    $("#pbars").toggle();
+                    $("#highbar").toggle();
+                    break;
+                case "PB":
+                    $("floor").toggle();
+                    $("#pommel").toggle();
+                    $("#rings").toggle();
+                    $("#vault").toggle();
+                    $("#pbars").toggle();
+                    $("#highbar").toggle();
+                    break;
+                case "HB":
+                    $("floor").toggle();
+                    $("#pommel").toggle();
+                    $("#rings").toggle();
+                    $("#vault").toggle();
+                    $("#pbars").toggle();
+                    $("#highbar").toggle();
+                    break;
+                default:
+                    break;
+            }
+        });
 
-        const table = $(this).closest('.routine-table');
-        const headerText = table.find('th').first().text();
-        const event = headerText.split(' ')[2]; // Assuming the format is "Level Event Routine"
-        console.log(`Add skill button clicked in event: ${event}`);
-        switch(event){
-            case "FX":
-                $("#pommel").hide();
-                $("#rings").hide();
-                $("#vault").hide();
-                $("#pbars").hide();
-                $("#highbar").hide();
-                break;
-            case "PH":
-                $("#floor").hide();
-                $("#rings").hide();
-                $("#vault").hide();
-                $("#pbars").hide();
-                $("#highbar").hide();
-                break;
-            case "SR":
-                $("#floor").hide();
-                $("#pommel").hide();
-                $("#vault").hide();
-                $("#pbars").hide();
-                $("#highbar").hide();
-                break;
-            case "VT":
-                $("#floor").hide();
-                $("#pommel").hide();
-                $("#rings").hide();
-                $("#pbars").hide();
-                $("#highbar").hide();
-                break;
-            case "PB": 
-                $("#floor").hide();
-                $("#pommel").hide();
-                $("#rings").hide();
-                $("#vault").hide();
-                $("#highbar").hide();
-                break;
-            case "HB":
-                $("#floor").hide();
-                $("#pommel").hide();
-                $("#rings").hide();
-                $("#vault").hide();
-                $("#pbars").hide();
-                break;
-            default:
-                break;
-        }
+    $(".delete-skill-button")
+        .off()
+        .on("click", function () {
+            var rowCount = $(this)
+                .closest("table")
+                .find("tr:not(.header-row):not(.score-row)").length;
+            if (rowCount >= 2) {
+                $(this)
+                    .closest("table")
+                    .find("tr:not(.header-row)")
+                    .eq(rowCount - 2)
+                    .remove();
+            } else {
+                console.log("No row to delete");
+            }
+        });
 
-        
+    $(".calculate-score-button")
+        .off()
+        .on("click", function () {
+            var headerText = $(this)
+                .closest("table")
+                .find(".header-row:first-child th")
+                .text();
+            var parts = headerText.split(" ");
+            var level = parts[1];
+            var event = parts[2];
+            var routineTable = $(this).closest("table");
+            calculateScore(event, level, routineTable);
+        });
 
-
-    });
-
-    $(".delete-skill-button").off().on("click", function () {
-        var rowCount = $(this).closest('table').find("tr:not(.header-row):not(.score-row)").length;
-        if (rowCount >= 2) {
-            $(this).closest('table').find("tr:not(.header-row)").eq(rowCount - 2).remove();
-        } else {
-            console.log("No row to delete");
-        }
-    });
-
-    $(".calculate-score-button").off().on("click", function () {
-        var headerText = $(this).closest('table').find(".header-row:first-child th").text();
-        var parts = headerText.split(" ");
-        var level = parts[1];
-        var event = parts[2];
-        var routineTable = $(this).closest('table');
-        calculateScore(event, level, routineTable);
-    });
-
-    $(document).off("click", ".skill-entry").on("click", ".skill-entry", function () {
-        const skillName = $(this).find("td").eq(0).text();
-        const skillDifficulty = $(this).find("td").eq(1).text();
-        const skillElementGroup = $(this).find("td").eq(2).text();
-        addSkill(skillName, skillDifficulty, skillElementGroup);
-        $("#skill-table-container").hide();
-        $("#routine-tables-container").show();
-        $(".buttons-container").show();
-    });
+    $(document)
+        .off("click", ".skill-entry")
+        .on("click", ".skill-entry", function () {
+            const skillName = $(this).find("td").eq(0).text();
+            const skillDifficulty = $(this).find("td").eq(1).text();
+            const skillElementGroup = $(this).find("td").eq(2).text();
+            addSkill(skillName, skillDifficulty, skillElementGroup);
+            $("#skill-table-container").hide();
+            $("#routine-tables-container").show();
+            $(".buttons-container").show();
+        });
 }
-
 
 // Function to reset button colors
 function resetButtonColors() {
-    $('.level-button').removeClass('active');
-    $('.event-button').removeClass('active');
+    $(".level-button").removeClass("active");
+    $(".event-button").removeClass("active");
     selectedLevel = null;
     selectedEvent = null;
-    $('#submit-routine-request').hide();
+    $("#submit-routine-request").hide();
 }
 
 $(document).ready(function () {
@@ -318,7 +353,6 @@ $(document).ready(function () {
 
     // Event listener for add routine button
     $("#add-routine-button").on("click", function () {
-
         $("#routine-tables-container").hide();
         $("#add-routine-table-container").show();
     });
@@ -328,54 +362,56 @@ $(document).ready(function () {
 
     // Function to update the submit button text
     function updateSubmitButton() {
-        if (selectedLevel) {
-            switch (selectedEvent) {
-                case 'FX':
-                    $('#floor').css("display", "block");
-                    break;
-                case 'PH':
-                    $('#pommel').css("display", "block");
-                    break;
-                case 'SR':
-                    $('#rings').css("display", "block");
-                    break;
-                case 'VT':
-                    $('#vault').css("display", "block");
-                    break;
-                case 'PB':
-                    $('#pbars').css("display", "block");
-                    break;
-                case 'HB':
-                    $('#highbar').css("display", "block");
-                    break;
-                default:
-                    break;
-            }
-        }
+        // if (selectedLevel) {
+        //     switch (selectedEvent) {
+        //         case 'FX':
+        //             $('#floor').css("display", "block");
+        //             break;
+        //         case 'PH':
+        //             $('#pommel').css("display", "block");
+        //             break;
+        //         case 'SR':
+        //             $('#rings').css("display", "block");
+        //             break;
+        //         case 'VT':
+        //             $('#vault').css("display", "block");
+        //             break;
+        //         case 'PB':
+        //             $('#pbars').css("display", "block");
+        //             break;
+        //         case 'HB':
+        //             $('#highbar').css("display", "block");
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
         if (selectedLevel && selectedEvent) {
-            $('#submit-routine-request').text(`Create Level ${selectedLevel} ${selectedEvent} routine table`);
-            $('#submit-routine-request').show();
+            $("#submit-routine-request").text(
+                `Create Level ${selectedLevel} ${selectedEvent} routine table`
+            );
+            $("#submit-routine-request").show();
         }
     }
 
     // Event listener for level buttons
-    $('.level-button').click(function () {
-        $('.level-button').removeClass('active');
-        $(this).addClass('active');
+    $(".level-button").click(function () {
+        $(".level-button").removeClass("active");
+        $(this).addClass("active");
         selectedLevel = $(this).text();
         updateSubmitButton();
     });
 
     // Event listener for event buttons
-    $('.event-button').click(function () {
-        $('.event-button').removeClass('active');
-        $(this).addClass('active');
+    $(".event-button").click(function () {
+        $(".event-button").removeClass("active");
+        $(this).addClass("active");
         selectedEvent = $(this).text();
         updateSubmitButton();
     });
 
     // Event listener for submit routine request button
-    $('#submit-routine-request').click(function () {
+    $("#submit-routine-request").click(function () {
         if (selectedLevel && selectedEvent) {
             createRoutineTable(selectedLevel, selectedEvent);
             $("#routine-tables-container").show();
@@ -385,9 +421,9 @@ $(document).ready(function () {
     });
 
     // Event listener for delete routine button
-    $('#delete-routine-button').click(function () {
-        let first = $('#routine-tables-container table:first');
-        let last = $('#routine-tables-container table:last');
+    $("#delete-routine-button").click(function () {
+        let first = $("#routine-tables-container table:first");
+        let last = $("#routine-tables-container table:last");
         if (first[0] !== last[0]) {
             last.remove();
         } else {
@@ -396,4 +432,3 @@ $(document).ready(function () {
     });
     attachEventListeners();
 });
-
