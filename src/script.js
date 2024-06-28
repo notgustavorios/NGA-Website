@@ -233,6 +233,7 @@ function attachEventListeners() {
                     console.log("ran");
                     $("#floor").show();
                     $("#pommel").hide();
+                    $("#mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -241,6 +242,16 @@ function attachEventListeners() {
                 case "PH":
                     $("#floor").hide();
                     $("#pommel").show();
+                    $("#mushroom").hide();
+                    $("#rings").hide();
+                    $("#vault").hide();
+                    $("#pbars").hide();
+                    $("#highbar").hide();
+                    break;
+                case "mushroom":
+                    $("#floor").hide();
+                    $("#pommel").hide();
+                    $("#mushroom").show();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -249,6 +260,7 @@ function attachEventListeners() {
                 case "SR":
                     $("#floor").hide();
                     $("#pommel").hide();
+                    $("#mushroom").hide();
                     $("#rings").show();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -257,6 +269,7 @@ function attachEventListeners() {
                 case "VT":
                     $("#floor").hide();
                     $("#pommel").hide();
+                    $("#mushroom").hide();
                     $("#rings").hide();
                     $("#vault").show();
                     $("#pbars").hide();
@@ -265,6 +278,7 @@ function attachEventListeners() {
                 case "PB":
                     $("#floor").hide();
                     $("#pommel").hide();
+                    $("#mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").show();
@@ -273,6 +287,7 @@ function attachEventListeners() {
                 case "HB":
                     $("#floor").hide();
                     $("#pommel").hide();
+                    $("#mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -326,6 +341,7 @@ function attachEventListeners() {
             $(".buttons-container").show();
 
             $("#floor").hide();
+            $("#mushroom").hide();
             $("#pommel").hide();
             $("#rings").hide();
             $("#vault").hide();
@@ -371,30 +387,6 @@ $(document).ready(function () {
 
     // Function to update the submit button text
     function updateSubmitButton() {
-        // if (selectedLevel) {
-        //     switch (selectedEvent) {
-        //         case 'FX':
-        //             $('#floor').css("display", "block");
-        //             break;
-        //         case 'PH':
-        //             $('#pommel').css("display", "block");
-        //             break;
-        //         case 'SR':
-        //             $('#rings').css("display", "block");
-        //             break;
-        //         case 'VT':
-        //             $('#vault').css("display", "block");
-        //             break;
-        //         case 'PB':
-        //             $('#pbars').css("display", "block");
-        //             break;
-        //         case 'HB':
-        //             $('#highbar').css("display", "block");
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // }
         if (selectedLevel && selectedEvent) {
             $("#submit-routine-request").text(
                 `Create Level ${selectedLevel} ${selectedEvent} routine table`
@@ -422,7 +414,14 @@ $(document).ready(function () {
     // Event listener for submit routine request button
     $("#submit-routine-request").click(function () {
         if (selectedLevel && selectedEvent) {
-            createRoutineTable(selectedLevel, selectedEvent);
+             console.log(selectedEvent);
+             console.log(selectedLevel);
+            if(selectedEvent=="PH"&&(selectedLevel=="Level 4" || selectedLevel=="Level 5")){
+                createRoutineTable(selectedLevel,"mushroom");      
+            }
+            else{
+                createRoutineTable(selectedLevel, selectedEvent);
+            }
             $("#routine-tables-container").show();
             $("#add-routine-table-container").hide();
             resetButtonColors();
