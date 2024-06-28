@@ -230,52 +230,53 @@ function attachEventListeners() {
             console.log(`Add skill button clicked in event: ${event}`);
             switch (event) {
                 case "FX":
-                    $("floor").toggle();
-                    $("#pommel").toggle();
-                    $("#rings").toggle();
-                    $("#vault").toggle();
-                    $("#pbars").toggle();
-                    $("#highbar").toggle();
+                    console.log("ran");
+                    $("#floor").show();
+                    $("#pommel").hide();
+                    $("#rings").hide();
+                    $("#vault").hide();
+                    $("#pbars").hide();
+                    $("#highbar").hide();
                     break;
                 case "PH":
-                    $("floor").toggle();
-                    $("#pommel").toggle();
-                    $("#rings").toggle();
-                    $("#vault").toggle();
-                    $("#pbars").toggle();
-                    $("#highbar").toggle();
+                    $("#floor").hide();
+                    $("#pommel").show();
+                    $("#rings").hide();
+                    $("#vault").hide();
+                    $("#pbars").hide();
+                    $("#highbar").hide();
                     break;
                 case "SR":
-                    $("floor").toggle();
-                    $("#pommel").toggle();
-                    $("#rings").toggle();
-                    $("#vault").toggle();
-                    $("#pbars").toggle();
-                    $("#highbar").toggle();
+                    $("#floor").hide();
+                    $("#pommel").hide();
+                    $("#rings").show();
+                    $("#vault").hide();
+                    $("#pbars").hide();
+                    $("#highbar").hide();
                     break;
                 case "VT":
-                    $("floor").toggle();
-                    $("#pommel").toggle();
-                    $("#rings").toggle();
-                    $("#vault").toggle();
-                    $("#pbars").toggle();
-                    $("#highbar").toggle();
+                    $("#floor").hide();
+                    $("#pommel").hide();
+                    $("#rings").hide();
+                    $("#vault").show();
+                    $("#pbars").hide();
+                    $("#highbar").hide();
                     break;
                 case "PB":
-                    $("floor").toggle();
-                    $("#pommel").toggle();
-                    $("#rings").toggle();
-                    $("#vault").toggle();
-                    $("#pbars").toggle();
-                    $("#highbar").toggle();
+                    $("#floor").hide();
+                    $("#pommel").hide();
+                    $("#rings").hide();
+                    $("#vault").hide();
+                    $("#pbars").show();
+                    $("#highbar").hide();
                     break;
                 case "HB":
-                    $("floor").toggle();
-                    $("#pommel").toggle();
-                    $("#rings").toggle();
-                    $("#vault").toggle();
-                    $("#pbars").toggle();
-                    $("#highbar").toggle();
+                    $("#floor").hide();
+                    $("#pommel").hide();
+                    $("#rings").hide();
+                    $("#vault").hide();
+                    $("#pbars").hide();
+                    $("#highbar").show();
                     break;
                 default:
                     break;
@@ -320,9 +321,17 @@ function attachEventListeners() {
             const skillDifficulty = $(this).find("td").eq(1).text();
             const skillElementGroup = $(this).find("td").eq(2).text();
             addSkill(skillName, skillDifficulty, skillElementGroup);
-            $("#skill-table-container").hide();
+            // $("#skill-table-container").hide();
             $("#routine-tables-container").show();
             $(".buttons-container").show();
+
+            $("#floor").hide();
+            $("#pommel").hide();
+            $("#rings").hide();
+            $("#vault").hide();
+            $("#pbars").hide();
+            $("#highbar").hide();
+
         });
 }
 
