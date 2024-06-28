@@ -43,7 +43,7 @@ function createTable(event, elementGroup) {
     return newTable;
 }
 
-function display_score(routineTable, score, scoreString) {
+function display_score(routineTable, execution, difficulty, scoreString) {
     // Define a class name for the score row
     var scoreClass = "score-row";
 
@@ -57,35 +57,42 @@ function display_score(routineTable, score, scoreString) {
             "<tr class='" +
             scoreClass +
             "'><td colspan='3'>" +
-            score +
-            "<br>" +
+            "Difficulty: " + difficulty + "<br>" +
+            "Execution: " + execution + "<br>" +
+            "Start Value: " + (parseFloat(difficulty) + parseFloat(execution)) + "<br>" +
             scoreString +
             "</td></tr>"
         );
     } else {
+        var sv = parseFloat(execution) + parseFloat(difficulty);
+
         // Update the text of the existing row with the scoreClass and set colspan 3
         routineTable
             .find("tr." + scoreClass)
             .find("td")
             .attr("colspan", "3")
-            .html(score + "<br>" + scoreString);
+            .html("Difficulty: " + difficulty + "<br>" +
+            "Execution: " + execution + "<br>" +
+            "Start Value: " + sv + "<br>" +
+            scoreString);
     }
 }
+
 
 // Function to calculate score for level 1-6 routines
 function calculate_NGA(routineTable, _level) {
     var skills = routineTable.find(
         "tr:not(.header-row):not(.add-row):not(.score-row)"
     ); // only the skills
-    var score = 10.0;
+    var execution = 10.0;
     var difficulty = 0.0;
     var scoreString = "";
     const elementGroups = new Set();
-    const skill_names = new Set();
+    let skill_names = [];
     _level = Number(_level);
 
     skills.each(function () {
-        skill_names.add($(this).find("td").eq(0).text());
+        skill_names.push($(this).find("td").eq(0).text());
         elementGroups.add($(this).find("td").eq(2).text());
 
         var difficultyText = $(this).find("td").eq(1).text();
@@ -97,18 +104,17 @@ function calculate_NGA(routineTable, _level) {
     switch (elementGroups.size) {
         case 0:
             scoreString += "Missing 4 element groups. Routine has no value.<br>";
-            score = 0;
             break;
         case 1:
-            score = score - 1.5;
+            execution -= 0.5;
             scoreString += "Missing 3 element groups. -1.5 deduction applied.<br>";
             break;
         case 2:
-            score = score - 1.0;
+            execution -= 1.0;
             scoreString += "Missing 2 element groups. -1.0 deduction applied.<br>";
             break;
         case 3:
-            score = score - 0.5;
+            execution -= 1.5;
             scoreString += "Missing 1 element group. -0.5 deduction applied.<br>";
             break;
         default:
@@ -116,29 +122,29 @@ function calculate_NGA(routineTable, _level) {
     }
 
     // short routine deductions
-    switch (skill_names.size) {
+    switch (skill_names.length) {
         case 0:
-            score = 0;
+            execution = 0;
             scoreString += "Short routine (-10) deduction applied.<br>";
             break;
         case 1:
-            score -= 7.0;
+            execution -= 7.0;
             scoreString += "Short routine (-7.0) deduction applied.<br>";
             break;
         case 2:
-            score -= 6.0;
+            execution -= 6.0;
             scoreString += "Short routine (-6.0) deduction applied.<br>";
             break;
         case 3:
-            score -= 5.0;
+            execution -= 5.0;
             scoreString += "Short routine (-5.0) deduction applied.<br>";
             break;
         case 4:
-            score -= 4.0;
+            execution -= 4.0;
             scoreString += "Short routine (-4.0) deduction applied.<br>";
             break;
         case 5:
-            score -= 3.0;
+            execution -= 3.0;
             scoreString += "Short routine (-3.0) deduction applied.<br>";
             break;
         default:
@@ -149,24 +155,24 @@ function calculate_NGA(routineTable, _level) {
     // check for missing FIG values
     switch (_level) {
         case 1:
-            scoreString += "FIG requirement met.<br>";
-            break;
         case 2:
-            scoreString += "FIG requirement met.<br>";
-            break;
         case 3:
             scoreString += "FIG requirement met.<br>";
             break;
         case 4:
             if (difficulty < 0.1) {
-                score -= 0.5;
+                execution -= 0.5;
                 scoreString += "Missing FIG 'A' requirement.<br>";
+            } else {
+                scoreString += "FIG requirement met.<br>";
             }
             break;
         case 5:
             if (difficulty < 0.2) {
-                score -= 0.5;
+                execution -= 0.5;
                 scoreString += "Missing FIG 'A' requirement.<br>";
+            } else {
+                scoreString += "FIG requirement met.<br>";
             }
             break;
         default:
@@ -174,11 +180,13 @@ function calculate_NGA(routineTable, _level) {
             break;
     }
 
-    score += difficulty;
-    console.log("Total Difficulty:", difficulty);
-    console.log(score);
-    display_score(routineTable, score, scoreString);
+    // Ensure floating-point precision is handled correctly
+    execution = parseFloat(execution.toFixed(2));
+    difficulty = parseFloat(difficulty.toFixed(2));
+
+    display_score(routineTable, execution, difficulty, scoreString);
 }
+
 
 // Function to calculate score based on level
 function calculateScore(_event, _level, routineTable) {

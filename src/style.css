@@ -1,9 +1,9 @@
 /* Styles for the routine and skill tables */
 #routine-tables-container {
     display: none;
-    border: 1px solid black;
-    background-color: blue;
-    color: white;
+    /* background-color: blue; */
+    color: black;
+    background-color: white;
 }
 
 #add-routine-table-container {
@@ -12,7 +12,9 @@
     color: white;
     text-align: center;
 }
-
+.add-row {
+    background-color: blue;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -111,6 +113,10 @@ td {
 
 .circle-button:hover {
     opacity: 0.8;
+}
+
+.routine-table {
+    margin-bottom: 10px;
 }
 
 #add-routine-table-container button {
