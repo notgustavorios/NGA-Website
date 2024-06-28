@@ -62,28 +62,9 @@ td {
     display: none;
 }
 
-#pommel {
+#pommel mushroom rings vault pbars highbar{
     display: none;
 }
-#mushroom {
-    display: none;
-}
-#rings {
-    display: none;
-}
-
-#vault {
-    display: none;
-}
-
-#pbars {
-    display: none;
-}
-
-#highbar {
-    display: none;
-}
-
 .skill-table th,
 .skill-table td {
     border: 1px solid black;
@@ -179,4 +160,44 @@ td {
     background-color: #f0f0f0;
     padding: 20px;
     border: 1px solid black;
+}
+
+#grid {
+    display: flex;
+    gap: 20px;
+    width: 95%;
+    margin: 0;
+    padding: 0px;
+    justify-content: center;
+}
+
+.item {
+    padding: 0px;
+    overflow-y: auto;
+    height: 1000px;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+#skill-box {
+    display: none;
+    position: relative;
+    overflow: auto; /* Ensure the content can scroll */
+    
+}
+
+#close-button {
+    position: sticky;
+    bottom: 10px;
+    margin-left: auto; /* Push the button to the right */
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+#close-button:hover {
+    background-color: darkred;
 }

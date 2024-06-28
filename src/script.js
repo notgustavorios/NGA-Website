@@ -219,9 +219,9 @@ function attachEventListeners() {
     $(".add-skill-button")
         .off()
         .on("click", function () {
-            $(".buttons-container").hide();
+            
             currentRoutineTable = $(this).closest("table");
-            $("#routine-tables-container").hide();
+            // $("#routine-tables-container").hide();
             $("#skill-table-container").show();
 
             const table = $(this).closest(".routine-table");
@@ -296,6 +296,19 @@ function attachEventListeners() {
                 default:
                     break;
             }
+            $("#skill-box").show();
+            $(".item").css("flex", "1");
+        });
+        $('#close-button').click(function(){
+            $("#skill-box").hide();
+            $("#floor").hide();
+            $("#mushroom").hide();
+            $("#pommel").hide();
+            $("#rings").hide();
+            $("#vault").hide();
+            $("#pbars").hide();
+            $("#highbar").hide();
+            $("#item-1").css("flex", "0 0 90%");
         });
 
     $(".delete-skill-button")
@@ -338,15 +351,9 @@ function attachEventListeners() {
             addSkill(skillName, skillDifficulty, skillElementGroup);
             // $("#skill-table-container").hide();
             $("#routine-tables-container").show();
-            $(".buttons-container").show();
+            
 
-            $("#floor").hide();
-            $("#mushroom").hide();
-            $("#pommel").hide();
-            $("#rings").hide();
-            $("#vault").hide();
-            $("#pbars").hide();
-            $("#highbar").hide();
+            
 
         });
 }
