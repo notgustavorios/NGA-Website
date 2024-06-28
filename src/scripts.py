@@ -34,7 +34,7 @@ def clean_csv_files_in_folder(folder_path):
 import pandas as pd
 
 # Load the CSV file
-csv_path = '/Users/gustavo/Desktop/NGA Routines/superskills/PB-SS.csv'
+csv_path = r'C:\dev\NGA-Routine\NGA-Website\superskills\PH-MUSH-SS.csv'
 df = pd.read_csv(csv_path)
 
 # HTML structure initialization
@@ -70,4 +70,55 @@ html_output += """
 """
 
 # Output the HTML
+#print(html_output)
+
+# Load the CSV file
+csv_path = r'C:\dev\NGA-Routine\NGA-Website\superskills\PH-MUSH-SS.csv'
+df = pd.read_csv(csv_path)
+
+# HTML structure initialization
+html_output = """
+<div id="skill-table-container">
+"""
+
+# Track the current element group
+current_element_group = None
+
+# Iterate through the dataframe and create rows for each entry
+for index, row in df.iterrows():
+    if row['ElementGroup'] != current_element_group:
+        if current_element_group is not None:
+            html_output += """
+        </table>
+    </div>
+"""
+        current_element_group = row['ElementGroup']
+        html_output += f"""
+        <table class="skill-table" data-group="{current_element_group}">
+            <tr>
+                <th colspan="3">{current_element_group}</th>
+            </tr>
+            <tr>
+                <th>Skill</th>
+                <th>Difficulty</th>
+                <th>Element Group</th>
+            </tr>
+"""
+    html_output += f"""
+            <tr class="skill-entry">
+                <td>{row['Name']}</td>
+                <td>{row['Difficulty']}</td>
+                <td>{row['ElementGroup']}</td>
+            </tr>
+"""
+
+# Closing the last table and div
+html_output += """
+        </table>
+    </div>
+</div>
+"""
+
+# Output the HTML
 print(html_output)
+
