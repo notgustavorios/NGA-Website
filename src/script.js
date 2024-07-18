@@ -1,3 +1,22 @@
+class Skill {
+    constructor(name, startValue, elementGroup) {
+        this.name = name;
+        this.startValue = startValue;
+        this.elementGroup = elementGroup;
+    }
+}
+// now there is going to be a datastructure that is going to be initially empty
+// I want to be able to add to this datastructure easily, and then remove Skill(s) using the name 
+// as the key.
+
+const EP = 8.0;
+
+const MIN_SKILLS = 6;
+const MAX_SKILLS = 8;
+
+
+
+
 let currentRoutineTable = null;
 
 // Function to add a skill row to the current routine table
@@ -57,9 +76,15 @@ function display_score(routineTable, execution, difficulty, scoreString) {
             "<tr class='" +
             scoreClass +
             "'><td colspan='3'>" +
-            "Difficulty: " + difficulty + "<br>" +
-            "Execution: " + execution + "<br>" +
-            "Start Value: " + (parseFloat(difficulty) + parseFloat(execution)) + "<br>" +
+            "Difficulty: " +
+            difficulty +
+            "<br>" +
+            "Execution: " +
+            execution +
+            "<br>" +
+            "Start Value: " +
+            (parseFloat(difficulty) + parseFloat(execution)) +
+            "<br>" +
             scoreString +
             "</td></tr>"
         );
@@ -71,22 +96,70 @@ function display_score(routineTable, execution, difficulty, scoreString) {
             .find("tr." + scoreClass)
             .find("td")
             .attr("colspan", "3")
-            .html("Difficulty: " + difficulty + "<br>" +
-            "Execution: " + execution + "<br>" +
-            "Start Value: " + sv + "<br>" +
-            scoreString);
+            .html(
+                "Difficulty: " +
+                difficulty +
+                "<br>" +
+                "Execution: " +
+                execution +
+                "<br>" +
+                "Start Value: " +
+                sv +
+                "<br>" +
+                scoreString
+            );
     }
 }
 
+const ELEMENT_GROUPS = {
+    1: 4,
+    2: 4,
+    3: 4,
+    4: 4,
+    5: 4,
+    6: 4,
+    7: 4,
+    8: 4,
+    9: 4,
+    10: 4
+};
 
-// Function to calculate score for level 1-6 routines
-function calculate_NGA(routineTable, _level) {
+const SUPERSKILLS = {
+    1: 8,
+    2: 8,
+    3: 8,
+    4: 6,
+    5: 5,
+    6: 4,
+    7: 3,
+    8: 2,
+    9: 1,
+    10: 0
+};
+
+const EXERCISE_PRESENTATION = {
+    1: 8.0,
+    2: 8.0,
+    3: 8.0,
+    4: 8.0,
+    5: 8.0,
+    6: 8.0,
+    7: 8.0,
+    8: 8.0,
+    9: 8.0,
+    10: 7.5
+};
+
+function calculate_compulsory_NGA(routineTable, _level) {
     var skills = routineTable.find(
         "tr:not(.header-row):not(.add-row):not(.score-row)"
-    ); // only the skills
-    var execution = 10.0;
-    var difficulty = 0.0;
-    var scoreString = "";
+    ); 
+
+    let scoreString = "";
+    let difficulty = 0;
+    let EG = EXERCISE_PRESENTATION[_level] || 89; 
+    console.log(EG);
+
     const elementGroups = new Set();
     let skill_names = [];
     _level = Number(_level);
@@ -106,45 +179,46 @@ function calculate_NGA(routineTable, _level) {
             scoreString += "Missing 4 element groups. Routine has no value.<br>";
             break;
         case 1:
-            execution -= 0.5;
+            EG += 0.5;
             scoreString += "Missing 3 element groups. -1.5 deduction applied.<br>";
             break;
         case 2:
-            execution -= 1.0;
+            EG += 1.0;
             scoreString += "Missing 2 element groups. -1.0 deduction applied.<br>";
             break;
         case 3:
-            execution -= 1.5;
+            EG += 1.5;
             scoreString += "Missing 1 element group. -0.5 deduction applied.<br>";
             break;
         default:
+            EG += 2.0;
             scoreString += "Element groups satisfied.<br>";
     }
 
     // short routine deductions
     switch (skill_names.length) {
         case 0:
-            execution = 0;
+            EG = 0;
             scoreString += "Short routine (-10) deduction applied.<br>";
             break;
         case 1:
-            execution -= 7.0;
+            EG -= 7.0;
             scoreString += "Short routine (-7.0) deduction applied.<br>";
             break;
         case 2:
-            execution -= 6.0;
+            EG -= 6.0;
             scoreString += "Short routine (-6.0) deduction applied.<br>";
             break;
         case 3:
-            execution -= 5.0;
+            EG -= 5.0;
             scoreString += "Short routine (-5.0) deduction applied.<br>";
             break;
         case 4:
-            execution -= 4.0;
+            EG -= 4.0;
             scoreString += "Short routine (-4.0) deduction applied.<br>";
             break;
         case 5:
-            execution -= 3.0;
+            EG -= 3.0;
             scoreString += "Short routine (-3.0) deduction applied.<br>";
             break;
         default:
@@ -161,7 +235,7 @@ function calculate_NGA(routineTable, _level) {
             break;
         case 4:
             if (difficulty < 0.1) {
-                execution -= 0.5;
+                EG -= 0.5;
                 scoreString += "Missing FIG 'A' requirement.<br>";
             } else {
                 scoreString += "FIG requirement met.<br>";
@@ -169,7 +243,7 @@ function calculate_NGA(routineTable, _level) {
             break;
         case 5:
             if (difficulty < 0.2) {
-                execution -= 0.5;
+                EG -= 0.5;
                 scoreString += "Missing FIG 'A' requirement.<br>";
             } else {
                 scoreString += "FIG requirement met.<br>";
@@ -181,16 +255,22 @@ function calculate_NGA(routineTable, _level) {
     }
 
     // Ensure floating-point precision is handled correctly
-    execution = parseFloat(execution.toFixed(2));
+    EG = parseFloat(EG.toFixed(2));
     difficulty = parseFloat(difficulty.toFixed(2));
 
-    display_score(routineTable, execution, difficulty, scoreString);
+    console.log("EG value is: " + EG);
+    display_score(routineTable, EG, difficulty, scoreString);
 }
 
 
 // Function to calculate score based on level
 function calculateScore(_event, _level, routineTable) {
-    calculate_NGA(routineTable, _level);
+    if(_level < 7) {
+        calculate_compulsory_NGA(routineTable, _level);
+    }
+    else {
+        calculate_optional_NGA(routineTable, _level);
+    }
 }
 
 // Function to create a new routine table
@@ -227,7 +307,6 @@ function attachEventListeners() {
     $(".add-skill-button")
         .off()
         .on("click", function () {
-            
             currentRoutineTable = $(this).closest("table");
             // $("#routine-tables-container").hide();
             $("#skill-table-container").show();
@@ -238,7 +317,6 @@ function attachEventListeners() {
             console.log(`Add skill button clicked in event: ${event}`);
             switch (event) {
                 case "FX":
-                    console.log("ran");
                     $("#floor").show();
                     $("#pommel").hide();
                     $("#mushroom").hide();
@@ -307,17 +385,17 @@ function attachEventListeners() {
             $("#skill-box").show();
             $(".item").css("flex", "1");
         });
-        $('#close-button').click(function(){
-            $("#skill-box").hide();
-            $("#floor").hide();
-            $("#mushroom").hide();
-            $("#pommel").hide();
-            $("#rings").hide();
-            $("#vault").hide();
-            $("#pbars").hide();
-            $("#highbar").hide();
-            $("#item-1").css("flex", "0 0 90%");
-        });
+    $("#close-button").click(function () {
+        $("#skill-box").hide();
+        $("#floor").hide();
+        $("#mushroom").hide();
+        $("#pommel").hide();
+        $("#rings").hide();
+        $("#vault").hide();
+        $("#pbars").hide();
+        $("#highbar").hide();
+        $("#item-1").css("flex", "0 0 90%");
+    });
 
     $(".delete-skill-button")
         .off()
@@ -344,7 +422,7 @@ function attachEventListeners() {
                 .find(".header-row:first-child th")
                 .text();
             var parts = headerText.split(" ");
-            var level = parts[1];
+            var level = +parts[1];
             var event = parts[2];
             var routineTable = $(this).closest("table");
             calculateScore(event, level, routineTable);
@@ -359,10 +437,6 @@ function attachEventListeners() {
             addSkill(skillName, skillDifficulty, skillElementGroup);
             // $("#skill-table-container").hide();
             $("#routine-tables-container").show();
-            
-
-            
-
         });
 }
 
@@ -378,22 +452,11 @@ function resetButtonColors() {
 $(document).ready(function () {
     console.log("JQuery loaded");
 
-    // Event listener for CSV file input
-    $("#csvFileInput").on("change", function (event) {
-        var file = event.target.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var csvData = e.target.result;
-                parseCSV(csvData);
-            };
-            reader.readAsText(file);
-        }
-    });
 
     // Event listener for add routine button
     $("#add-routine-button").on("click", function () {
         $("#routine-tables-container").hide();
+        $("#skill-table-container").hide();
         $("#add-routine-table-container").show();
     });
 
@@ -429,12 +492,14 @@ $(document).ready(function () {
     // Event listener for submit routine request button
     $("#submit-routine-request").click(function () {
         if (selectedLevel && selectedEvent) {
-             console.log(selectedEvent);
-             console.log(selectedLevel);
-            if(selectedEvent=="PH"&&(selectedLevel=="Level 4" || selectedLevel=="Level 5")){
-                createRoutineTable(selectedLevel,"mushroom");      
-            }
-            else{
+            console.log(selectedEvent);
+            console.log(selectedLevel);
+            if (
+                selectedEvent == "PH" &&
+                (selectedLevel == "Level 4" || selectedLevel == "Level 5")
+            ) {
+                createRoutineTable(selectedLevel, "mushroom");
+            } else {
                 createRoutineTable(selectedLevel, selectedEvent);
             }
             $("#routine-tables-container").show();
