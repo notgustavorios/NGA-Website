@@ -65,7 +65,7 @@ function createTable(event, elementGroup) {
 function display_score(routineTable, execution, difficulty, scoreString) {
     // Define a class name for the score row
     var scoreClass = "score-row";
-
+    
     // Check if a row with the scoreClass already exists
     if (routineTable.find("tr." + scoreClass).length === 0) {
         // Find the last row in the routineTable
@@ -76,16 +76,7 @@ function display_score(routineTable, execution, difficulty, scoreString) {
             "<tr class='" +
             scoreClass +
             "'><td colspan='3'>" +
-            "Difficulty: " +
-            difficulty +
-            "<br>" +
-            "Execution: " +
-            execution +
-            "<br>" +
-            "Start Value: " +
-            (parseFloat(difficulty) + parseFloat(execution)) +
-            "<br>" +
-            scoreString +
+            "Start Value: " + sv + " Execution: " + execution + " Difficulty: " + difficulty +
             "</td></tr>"
         );
     } else {
@@ -97,16 +88,7 @@ function display_score(routineTable, execution, difficulty, scoreString) {
             .find("td")
             .attr("colspan", "3")
             .html(
-                "Difficulty: " +
-                difficulty +
-                "<br>" +
-                "Execution: " +
-                execution +
-                "<br>" +
-                "Start Value: " +
-                sv +
-                "<br>" +
-                scoreString
+                "Start Value: " + sv + " Execution: " + execution + " Difficulty: " + difficulty
             );
     }
 }
@@ -172,57 +154,57 @@ function calculate_compulsory_NGA(routineTable, _level) {
         difficulty += parseFloat(difficultyText) || 0.0; // Ensure difficultyText is parsed correctly
     });
 
-    scoreString += "Calculating score for level " + _level + " routine.<br>";
+    //scoreString += "Calculating score for level " + _level + " routine.<br>";
 
     switch (elementGroups.size) {
         case 0:
-            scoreString += "Missing 4 element groups. Routine has no value.<br>";
+            //scoreString += "Missing 4 element groups. Routine has no value.<br>";
             break;
         case 1:
             EG += 0.5;
-            scoreString += "Missing 3 element groups. -1.5 deduction applied.<br>";
+            //scoreString += "Missing 3 element groups. -1.5 deduction applied.<br>";
             break;
         case 2:
             EG += 1.0;
-            scoreString += "Missing 2 element groups. -1.0 deduction applied.<br>";
+            //scoreString += "Missing 2 element groups. -1.0 deduction applied.<br>";
             break;
         case 3:
             EG += 1.5;
-            scoreString += "Missing 1 element group. -0.5 deduction applied.<br>";
+            //scoreString += "Missing 1 element group. -0.5 deduction applied.<br>";
             break;
         default:
             EG += 2.0;
-            scoreString += "Element groups satisfied.<br>";
+            //scoreString += "Element groups satisfied.<br>";
     }
 
     // short routine deductions
     switch (skill_names.length) {
         case 0:
             EG = 0;
-            scoreString += "Short routine (-10) deduction applied.<br>";
+            //scoreString += "Short routine (-10) deduction applied.<br>";
             break;
         case 1:
             EG -= 7.0;
-            scoreString += "Short routine (-7.0) deduction applied.<br>";
+            //scoreString += "Short routine (-7.0) deduction applied.<br>";
             break;
         case 2:
             EG -= 6.0;
-            scoreString += "Short routine (-6.0) deduction applied.<br>";
+            //scoreString += "Short routine (-6.0) deduction applied.<br>";
             break;
         case 3:
             EG -= 5.0;
-            scoreString += "Short routine (-5.0) deduction applied.<br>";
+            //scoreString += "Short routine (-5.0) deduction applied.<br>";
             break;
         case 4:
             EG -= 4.0;
-            scoreString += "Short routine (-4.0) deduction applied.<br>";
+            //scoreString += "Short routine (-4.0) deduction applied.<br>";
             break;
         case 5:
             EG -= 3.0;
-            scoreString += "Short routine (-3.0) deduction applied.<br>";
+            //scoreString += "Short routine (-3.0) deduction applied.<br>";
             break;
         default:
-            scoreString += "Met minimum 6 skills requirement.<br>";
+            //scoreString += "Met minimum 6 skills requirement.<br>";
             break;
     }
 
@@ -231,26 +213,26 @@ function calculate_compulsory_NGA(routineTable, _level) {
         case 1:
         case 2:
         case 3:
-            scoreString += "FIG requirement met.<br>";
+            //scoreString += "FIG requirement met.<br>";
             break;
         case 4:
             if (difficulty < 0.1) {
                 EG -= 0.5;
-                scoreString += "Missing FIG 'A' requirement.<br>";
+                //scoreString += "Missing FIG 'A' requirement.<br>";
             } else {
-                scoreString += "FIG requirement met.<br>";
+                //scoreString += "FIG requirement met.<br>";
             }
             break;
         case 5:
             if (difficulty < 0.2) {
                 EG -= 0.5;
-                scoreString += "Missing FIG 'A' requirement.<br>";
+                //scoreString += "Missing FIG 'A' requirement.<br>";
             } else {
-                scoreString += "FIG requirement met.<br>";
+                //scoreString += "FIG requirement met.<br>";
             }
             break;
         default:
-            scoreString += "Level not supported yet! Updates coming soon..<br>";
+            //scoreString += "Level not supported yet! Updates coming soon..<br>";
             break;
     }
 
