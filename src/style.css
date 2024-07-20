@@ -213,3 +213,13 @@ td {
 #close-button:hover {
     background-color: darkred;
 }
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}

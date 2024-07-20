@@ -1,10 +1,39 @@
-class Skill {
-    constructor(name, startValue, elementGroup) {
-        this.name = name;
-        this.startValue = startValue;
-        this.elementGroup = elementGroup;
+function searchTable() {
+    const input = document.getElementById('searchBar').value.toLowerCase();
+    const table = document.getElementById('dataTable');
+    const rows = Array.from(table.getElementsByTagName('tr')).slice(1); // Exclude the header row
+
+    // If input is empty, display all rows
+    if (input === '') {
+        rows.forEach(row => row.style.display = '');
+        return;
     }
+
+    // Filter rows based on the input
+    const filteredRows = rows.filter(row => {
+        const cells = row.getElementsByTagName('td');
+        return Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(input));
+    });
+
+    // Sort rows by the closest match (simplified to sort by number of matched cells)
+    filteredRows.sort((a, b) => {
+        const aMatchCount = Array.from(a.getElementsByTagName('td')).filter(cell => cell.textContent.toLowerCase().includes(input)).length;
+        const bMatchCount = Array.from(b.getElementsByTagName('td')).filter(cell => cell.textContent.toLowerCase().includes(input)).length;
+        return bMatchCount - aMatchCount;
+    });
+
+    // Hide all rows initially
+    rows.forEach(row => row.style.display = 'none');
+
+    // Display the closest three matches
+    filteredRows.slice(0, 3).forEach(row => row.style.display = '');
+
+    // Display the rest of the rows after the closest three
+    filteredRows.slice(3).forEach(row => row.style.display = '');
 }
+
+
+
 // now there is going to be a datastructure that is going to be initially empty
 // I want to be able to add to this datastructure easily, and then remove Skill(s) using the name 
 // as the key.
