@@ -531,3 +531,47 @@ $(document).ready(function () {
     });
     attachEventListeners();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('routine-tables-container');
+    const contextMenu = document.getElementById('contextMenu');
+    let selectedRow;
+
+    table.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+
+        selectedRow = event.target.closest('tr');
+        if (!selectedRow) return;
+
+        contextMenu.style.display = 'block';
+        contextMenu.style.top = `${event.pageY}px`;
+        contextMenu.style.left = `${event.pageX}px`;
+    });
+
+    document.addEventListener('click', () => {
+        contextMenu.style.display = 'none';
+    });
+
+    document.getElementById('deleteRow').addEventListener('click', () => {
+        if (selectedRow) {
+            selectedRow.remove();
+        }
+    });
+
+    document.getElementById('insertBefore').addEventListener('click', () => {
+        if (selectedRow) {
+            const newRow = table.insertRow(selectedRow.rowIndex);
+            const cell = newRow.insertCell(0);
+            cell.textContent = 'New Row';
+        }
+    });
+
+    document.getElementById('insertAfter').addEventListener('click', () => {
+        if (selectedRow) {
+            const newRow = table.insertRow(selectedRow.rowIndex + 1);
+            const cell = newRow.insertCell(0);
+            cell.textContent = 'New Row';
+        }
+    });
+});
+
