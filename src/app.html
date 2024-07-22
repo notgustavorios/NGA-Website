@@ -13,6 +13,7 @@
 
 <body>
 
+    <!-- Beginning prompt to select Level and Event -->
     <div id="add-routine-table-container">
         <div class="level-selection">
             <h2>Choose a Level</h2>
@@ -47,19 +48,22 @@
 
     <div id="grid">
         <div class="item" id="item-1">
-            <div id="routine-tables-container"></div>
+            <!-- Routine tables are appended to this div -->
+            <div id="routine-tables-container" class="vertical"></div>
         </div>
+        <!-- The menu that gets popped up when right clicking a skill -->
         <ul id="contextMenu" class="context-menu">
             <li id="deleteRow">Delete Row</li>
             <li id="insertBefore">Insert Row Before</li>
             <li id="insertAfter">Insert Row After</li>
         </ul>
-
+        <!-- Skill boxes -->
         <div class="item" id="skill-box">
             <div class="search-container">
                 <input type="text" id="searchBar" placeholder="Search..." onkeyup="searchTable()">
             </div>
-            <div id="fig-skill-table-container"></div>
+            
+            <!-- The BIG skills table -->
             <div id="dataTable">
                 <div id="skill-table-container">
                     <div id="floor">
@@ -1513,7 +1517,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div id="mushroom">
+                    <div id="Mushroom">
                         <table class="skill-table" data-group="1">
                             <tr>
                                 <th colspan="3">Flairs -- GRP I</th>
@@ -5190,10 +5194,10 @@
                         </table>
                     </div>
                 </div>
+                <button id="close-button" class="button">Close</button>
             </div>
 
 
-            <button id="close-button" class="button">Close</button>
 
         </div>
     </div>
@@ -5203,6 +5207,7 @@
     <div class="buttons-container">
         <button class="circle-button" id="add-routine-button">+</button>
         <button class="circle-button" id="delete-routine-button">-</button>
+        <button class="circle-button" id="toggleButton">X</button>
     </div>
 
 

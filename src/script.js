@@ -330,7 +330,7 @@ function attachEventListeners() {
                 case "FX":
                     $("#floor").show();
                     $("#pommel").hide();
-                    $("#mushroom").hide();
+                    $("#Mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -339,16 +339,16 @@ function attachEventListeners() {
                 case "PH":
                     $("#floor").hide();
                     $("#pommel").show();
-                    $("#mushroom").hide();
+                    $("#Mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
                     $("#highbar").hide();
                     break;
-                case "mushroom":
+                case "Mushroom":
                     $("#floor").hide();
                     $("#pommel").hide();
-                    $("#mushroom").show();
+                    $("#Mushroom").show();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -357,7 +357,7 @@ function attachEventListeners() {
                 case "SR":
                     $("#floor").hide();
                     $("#pommel").hide();
-                    $("#mushroom").hide();
+                    $("#Mushroom").hide();
                     $("#rings").show();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -366,7 +366,7 @@ function attachEventListeners() {
                 case "VT":
                     $("#floor").hide();
                     $("#pommel").hide();
-                    $("#mushroom").hide();
+                    $("#Mushroom").hide();
                     $("#rings").hide();
                     $("#vault").show();
                     $("#pbars").hide();
@@ -375,7 +375,7 @@ function attachEventListeners() {
                 case "PB":
                     $("#floor").hide();
                     $("#pommel").hide();
-                    $("#mushroom").hide();
+                    $("#Mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").show();
@@ -384,7 +384,7 @@ function attachEventListeners() {
                 case "HB":
                     $("#floor").hide();
                     $("#pommel").hide();
-                    $("#mushroom").hide();
+                    $("#Mushroom").hide();
                     $("#rings").hide();
                     $("#vault").hide();
                     $("#pbars").hide();
@@ -460,9 +460,15 @@ function resetButtonColors() {
     $("#submit-routine-request").hide();
 }
 
+// Toggle exploded view button 
+document.getElementById('toggleButton').addEventListener('click', function() {
+    const container = document.getElementById('routine-tables-container');
+    container.classList.toggle('vertical');
+    container.classList.toggle('grid');
+});
+
 $(document).ready(function () {
     console.log("JQuery loaded");
-
 
     // Event listener for add routine button
     $("#add-routine-button").on("click", function () {
@@ -509,9 +515,19 @@ $(document).ready(function () {
                 selectedEvent == "PH" &&
                 (selectedLevel == "Level 4" || selectedLevel == "Level 5")
             ) {
-                createRoutineTable(selectedLevel, "mushroom");
+                createRoutineTable(selectedLevel, "FX");
+                createRoutineTable(selectedLevel, "Mushroom");
+                createRoutineTable(selectedLevel, "SR");
+                createRoutineTable(selectedLevel, "VT");
+                createRoutineTable(selectedLevel, "PB");
+                createRoutineTable(selectedLevel, "HB");
             } else {
-                createRoutineTable(selectedLevel, selectedEvent);
+                createRoutineTable(selectedLevel, "FX");
+                createRoutineTable(selectedLevel, "PH");
+                createRoutineTable(selectedLevel, "SR");
+                createRoutineTable(selectedLevel, "VT");
+                createRoutineTable(selectedLevel, "PB");
+                createRoutineTable(selectedLevel, "HB");
             }
             $("#routine-tables-container").show();
             $("#add-routine-table-container").hide();
