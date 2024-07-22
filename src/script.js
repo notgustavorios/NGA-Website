@@ -49,16 +49,35 @@ const MAX_SKILLS = 8;
 let currentRoutineTable = null;
 
 // Function to add a skill row to the current routine table
+// Function to add a skill row to the current routine table
 function addSkill(_name, _difficulty, _elementGroup) {
-    const rowCount = currentRoutineTable.find("tr:not(.header-row)").length;
-    const skillRowClass = rowCount % 2 !== 0 ? "skill-even-row" : "skill-odd-row";
-    const skillId = "skill-" + Date.now();
-    const newRow = $("<tr></tr>").addClass(skillRowClass).attr("id", skillId);
-    newRow.append(`<td>${_name}</td>`);
-    newRow.append(`<td>${_difficulty}</td>`);
-    newRow.append(`<td>${_elementGroup}</td>`);
-    currentRoutineTable.find(".add-row").before(newRow);
+    let addedToExistingRow = false;
+
+    // Check if there are empty rows and fill them first
+    currentRoutineTable.find(".skillRowClass").each(function () {
+        const cells = $(this).find("td");
+        if (cells.eq(0).text() === "" && cells.eq(1).text() === "" && cells.eq(2).text() === "") {
+            cells.eq(0).text(_name);
+            cells.eq(1).text(_difficulty);
+            cells.eq(2).text(_elementGroup);
+            addedToExistingRow = true;
+            return false; // Exit loop after filling the first empty row
+        }
+    });
+
+    // If no empty rows, add a new row at the end
+    if (!addedToExistingRow) {
+        const rowCount = currentRoutineTable.find("tr:not(.header-row)").length;
+        const skillRowClass = rowCount % 2 !== 0 ? "skill-even-row" : "skill-odd-row";
+        const skillId = "skill-" + Date.now();
+        const newRow = $("<tr></tr>").addClass(skillRowClass).attr("id", skillId);
+        newRow.append(`<td>${_name}</td>`);
+        newRow.append(`<td>${_difficulty}</td>`);
+        newRow.append(`<td>${_elementGroup}</td>`);
+        currentRoutineTable.find(".add-row").before(newRow);
+    }
 }
+
 
 // Function to convert an integer to a Roman numeral
 function toRomanNumeral(integer) {
@@ -94,7 +113,7 @@ function createTable(event, elementGroup) {
 function display_score(routineTable, execution, difficulty, scoreString) {
     // Define a class name for the score row
     var scoreClass = "score-row";
-    
+
     // Check if a row with the scoreClass already exists
     if (routineTable.find("tr." + scoreClass).length === 0) {
         // Find the last row in the routineTable
@@ -164,11 +183,11 @@ const EXERCISE_PRESENTATION = {
 function calculate_compulsory_NGA(routineTable, _level) {
     var skills = routineTable.find(
         "tr:not(.header-row):not(.add-row):not(.score-row)"
-    ); 
+    );
 
     let scoreString = "";
     let difficulty = 0;
-    let EG = EXERCISE_PRESENTATION[_level] || 89; 
+    let EG = EXERCISE_PRESENTATION[_level] || 89;
     console.log(EG);
 
     const elementGroups = new Set();
@@ -203,7 +222,7 @@ function calculate_compulsory_NGA(routineTable, _level) {
             break;
         default:
             EG += 2.0;
-            //scoreString += "Element groups satisfied.<br>";
+        //scoreString += "Element groups satisfied.<br>";
     }
 
     // short routine deductions
@@ -276,7 +295,7 @@ function calculate_compulsory_NGA(routineTable, _level) {
 
 // Function to calculate score based on level
 function calculateScore(_event, _level, routineTable) {
-    if(_level < 7) {
+    if (_level < 7) {
         calculate_compulsory_NGA(routineTable, _level);
     }
     else {
@@ -296,6 +315,46 @@ function createRoutineTable(level, event) {
                             <th>Difficulty Value</th>
                             <th>Element Group</th>
                         </tr>
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr> 
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr> 
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr> 
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr> 
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>    
+                        <tr class="skillRowClass">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>  
                         <tr class="add-row">
                             <td>
                                 <button class="add-skill-button">Add a Skill</button>
@@ -411,19 +470,43 @@ function attachEventListeners() {
     $(".delete-skill-button")
         .off()
         .on("click", function () {
-            var rowCount = $(this)
-                .closest("table")
-                .find("tr:not(.header-row):not(.score-row)").length;
-            if (rowCount >= 2) {
-                $(this)
-                    .closest("table")
-                    .find("tr:not(.header-row)")
-                    .eq(rowCount - 2)
-                    .remove();
+            var $table = $(this).closest("table");
+            var $skillRows = $table.find("tr.skillRowClass");
+            var rowCount = $skillRows.length;
+
+            console.log("Total skill rows:", rowCount);
+            $skillRows.each(function (index, row) {
+                console.log("Row", index, $(row).html());
+            });
+
+
+            if (rowCount >= 10) {
+                // Remove the last row if there are more than 10 skill rows
+                $skillRows.last().remove();
             } else {
-                console.log("No row to delete");
+                // Clear the contents of the last non-empty row
+                let cleared = false;
+                for (let i = rowCount; i >= 0; i--) {
+                    let $cells = $skillRows.eq(i).find("td");
+                    let isEmpty = $cells.filter(function () {
+                        return $(this).text().trim() !== "";
+                    }).length === 0;
+
+                    if (!isEmpty) {
+                        $cells.each(function () {
+                            $(this).text("");
+                        });
+                        cleared = true;
+                        break;
+                    }
+                }
+                if (!cleared) {
+                    console.log("No row to clear");
+                }
             }
         });
+
+
 
     $(".calculate-score-button")
         .off()
@@ -461,7 +544,7 @@ function resetButtonColors() {
 }
 
 // Toggle exploded view button 
-document.getElementById('toggleButton').addEventListener('click', function() {
+document.getElementById('toggleButton').addEventListener('click', function () {
     const container = document.getElementById('routine-tables-container');
     container.classList.toggle('vertical');
     container.classList.toggle('grid');
