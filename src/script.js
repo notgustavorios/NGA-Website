@@ -54,7 +54,7 @@ function addSkill(_name, _difficulty, _elementGroup) {
     let addedToExistingRow = false;
 
     // Check if there are empty rows and fill them first
-    currentRoutineTable.find(".skillRowClass").each(function () {
+    currentRoutineTable.find("tr:not(.header-row)").each(function () {
         const cells = $(this).find("td");
         if (cells.eq(0).text() === "" && cells.eq(1).text() === "" && cells.eq(2).text() === "") {
             cells.eq(0).text(_name);
@@ -68,9 +68,8 @@ function addSkill(_name, _difficulty, _elementGroup) {
     // If no empty rows, add a new row at the end
     if (!addedToExistingRow) {
         const rowCount = currentRoutineTable.find("tr:not(.header-row)").length;
-        const skillRowClass = rowCount % 2 !== 0 ? "skill-even-row" : "skill-odd-row";
-        const skillId = "skill-" + Date.now();
-        const newRow = $("<tr></tr>").addClass(skillRowClass).attr("id", skillId);
+        const oddOrEven = rowCount % 2 !== 0 ? "skill-even-row" : "skill-odd-row";
+        const newRow = $("<tr></tr>").addClass(oddOrEven);
         newRow.append(`<td>${_name}</td>`);
         newRow.append(`<td>${_difficulty}</td>`);
         newRow.append(`<td>${_elementGroup}</td>`);
@@ -349,46 +348,56 @@ function createRoutineTable(level, event) {
                             <th>Difficulty Value</th>
                             <th>Element Group</th>
                         </tr>
-                        <tr class="skillRowClass">
+                        <tr class="skill-even-row">
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr class="skillRowClass">
+                        <tr class="skill-odd-row">
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
-                        <tr class="skillRowClass">
+                        <tr class="skill-even-row">
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr> 
-                        <tr class="skillRowClass">
+                        </tr>
+                        <tr class="skill-odd-row">
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr> 
-                        <tr class="skillRowClass">
+                        </tr>
+                        <tr class="skill-even-row">
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr> 
-                        <tr class="skillRowClass">
+                        </tr>
+                        <tr class="skill-odd-row">
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr> 
-                        <tr class="skillRowClass">
+                        </tr>
+                        <tr class="skill-even-row">
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr>    
-                        <tr class="skillRowClass">
+                        </tr>
+                        <tr class="skill-odd-row">
                             <td></td>
                             <td></td>
                             <td></td>
-                        </tr>  
+                        </tr>
+                        <tr class="skill-even-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="skill-odd-row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>                          
                         <tr class="add-row">
                             <td>
                                 <button class="add-skill-button">Add a Skill</button>
@@ -505,7 +514,7 @@ function attachEventListeners() {
         .off()
         .on("click", function () {
             var $table = $(this).closest("table");
-            var $skillRows = $table.find("tr.skillRowClass");
+            var $skillRows = $table.find("tr.skill-odd-row, tr.skill-even-row");
             var rowCount = $skillRows.length;
 
             console.log("Total skill rows:", rowCount);
@@ -514,7 +523,7 @@ function attachEventListeners() {
             });
 
 
-            if (rowCount >= 10) {
+            if (rowCount > 10) {
                 // Remove the last row if there are more than 10 skill rows
                 $skillRows.last().remove();
             } else {

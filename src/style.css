@@ -7,7 +7,6 @@
     gap: 10px;
 }
 
-
 #routine-tables-container.vertical {
     grid-template-columns: 1fr;
 }
@@ -17,6 +16,11 @@
     grid-template-rows: repeat(2, 1fr);
 }
 
+.routine-table {
+    display: block;
+    width: 100%;
+}
+
 
 #add-routine-table-container {
     border: 1px solid black;
@@ -24,9 +28,11 @@
     color: white;
     text-align: center;
 }
+
 .add-row {
     background-color: blue;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -76,13 +82,13 @@ td {
     display: none;
 }
 
-#pommel mushroom rings vault pbars highbar{
+#pommel mushroom rings vault pbars highbar {
     display: none;
 }
+
 .skill-table th,
 .skill-table td {
     border: 1px solid black;
-    padding: 8px;
     text-align: center;
 }
 
@@ -127,9 +133,7 @@ td {
     opacity: 0.8;
 }
 
-.routine-table {
-    margin-bottom: 10px;
-}
+
 
 #add-routine-table-container button {
     border: 1px solid white;
@@ -201,25 +205,29 @@ td {
     overflow-y: auto;
     flex: 1;
     box-sizing: border-box;
+    width: 100%;
 }
 
 #skill-box {
     display: none;
     position: relative;
-    overflow: auto; /* Ensure the content can scroll */
-    
+    overflow-y: vertical;
+    /* Ensure the content can scroll */
+
 }
 
 #close-button {
     position: sticky;
     bottom: 1px;
-    margin-left: auto; /* Push the button to the right */
+    margin-left: auto;
+    /* Push the button to the right */
     background-color: red;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
-    z-index: 1000; /* Ensure it stays on top of other content */
+    z-index: 1000;
+    /* Ensure it stays on top of other content */
 }
 
 #close-button:hover {
@@ -235,6 +243,7 @@ td {
     padding: 10px;
     font-size: 16px;
 }
+
 .context-menu {
     display: none;
     position: absolute;
