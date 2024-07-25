@@ -181,106 +181,98 @@ const EXERCISE_PRESENTATION = {
 };
 
 function calculate_compulsory_NGA(routineTable, _level) {
-    var skills = routineTable.find(
+    var table = routineTable.find(
         "tr:not(.header-row):not(.add-row):not(.score-row)"
     );
 
     let scoreString = "";
     let difficulty = 0;
     let EG = EXERCISE_PRESENTATION[_level] || 89;
-    console.log(EG);
 
-    const elementGroups = new Set();
-    let skill_names = [];
+    let skills = [];
     _level = Number(_level);
 
-    skills.each(function () {
-        skill_names.push($(this).find("td").eq(0).text());
-        elementGroups.add($(this).find("td").eq(2).text());
+    table.each(function () {
+        const skillName = $(this).find("td").eq(0).text();
+        const skillDifficulty = parseFloat($(this).find("td").eq(1).text());
+        const skillElementGroup = parseInt($(this).find("td").eq(2).text());
 
-        var difficultyText = $(this).find("td").eq(1).text();
-        difficulty += parseFloat(difficultyText) || 0.0; // Ensure difficultyText is parsed correctly
+        skills.push({
+            name: skillName,
+            difficulty: skillDifficulty,
+            elementGroup: skillElementGroup
+        });
     });
 
-    //scoreString += "Calculating score for level " + _level + " routine.<br>";
+    const topSkills = getTopRoutineSkills(skills);
 
+    console.log(topSkills);
+
+    let elementGroups = new Set();
+    topSkills.forEach(skill => {
+        elementGroups.add(skill.elementGroup);
+        difficulty += skill.difficulty;
+    });
+
+    // Check for element group deductions
     switch (elementGroups.size) {
         case 0:
-            //scoreString += "Missing 4 element groups. Routine has no value.<br>";
             break;
         case 1:
             EG += 0.5;
-            //scoreString += "Missing 3 element groups. -1.5 deduction applied.<br>";
             break;
         case 2:
             EG += 1.0;
-            //scoreString += "Missing 2 element groups. -1.0 deduction applied.<br>";
             break;
         case 3:
             EG += 1.5;
-            //scoreString += "Missing 1 element group. -0.5 deduction applied.<br>";
             break;
         default:
             EG += 2.0;
-        //scoreString += "Element groups satisfied.<br>";
+            break;
     }
 
-    // short routine deductions
-    switch (skill_names.length) {
+    // Check for short routine deductions
+    switch (topSkills.length) {
         case 0:
             EG = 0;
-            //scoreString += "Short routine (-10) deduction applied.<br>";
             break;
         case 1:
             EG -= 7.0;
-            //scoreString += "Short routine (-7.0) deduction applied.<br>";
             break;
         case 2:
             EG -= 6.0;
-            //scoreString += "Short routine (-6.0) deduction applied.<br>";
             break;
         case 3:
             EG -= 5.0;
-            //scoreString += "Short routine (-5.0) deduction applied.<br>";
             break;
         case 4:
             EG -= 4.0;
-            //scoreString += "Short routine (-4.0) deduction applied.<br>";
             break;
         case 5:
             EG -= 3.0;
-            //scoreString += "Short routine (-3.0) deduction applied.<br>";
             break;
         default:
-            //scoreString += "Met minimum 6 skills requirement.<br>";
             break;
     }
 
-    // check for missing FIG values
+    // Check for missing FIG values
     switch (_level) {
         case 1:
         case 2:
         case 3:
-            //scoreString += "FIG requirement met.<br>";
             break;
         case 4:
             if (difficulty < 0.1) {
                 EG -= 0.5;
-                //scoreString += "Missing FIG 'A' requirement.<br>";
-            } else {
-                //scoreString += "FIG requirement met.<br>";
             }
             break;
         case 5:
             if (difficulty < 0.2) {
                 EG -= 0.5;
-                //scoreString += "Missing FIG 'A' requirement.<br>";
-            } else {
-                //scoreString += "FIG requirement met.<br>";
             }
             break;
         default:
-            //scoreString += "Level not supported yet! Updates coming soon..<br>";
             break;
     }
 
@@ -289,8 +281,50 @@ function calculate_compulsory_NGA(routineTable, _level) {
     difficulty = parseFloat(difficulty.toFixed(2));
 
     console.log("EG value is: " + EG);
+    console.log("Difficulty value is: " + difficulty);
+
     display_score(routineTable, EG, difficulty, scoreString);
 }
+
+function getTopRoutineSkills(skills) {
+    // Remove duplicate skills
+    let uniqueSkills = skills.reduce((acc, skill) => {
+        if (!acc.some(s => s.name === skill.name)) {
+            acc.push(skill);
+        }
+        return acc;
+    }, []);
+
+    // Sort skills by difficulty value in descending order
+    uniqueSkills.sort((a, b) => b.difficulty - a.difficulty);
+
+    // Group skills by element group
+    let elementGroups = [[], [], [], []];
+    uniqueSkills.forEach(skill => {
+        elementGroups[skill.elementGroup - 1].push(skill);
+    });
+
+    // Ensure at least one skill from each element group if present
+    let topSkills = [];
+    for (let i = 0; i < elementGroups.length; i++) {
+        if (elementGroups[i].length > 0) {
+            topSkills.push(elementGroups[i][0]);
+        }
+    }
+
+    // Flatten the remaining skills and sort again by difficulty value
+    let remainingSkills = [].concat(...elementGroups).sort((a, b) => b.difficulty - a.difficulty);
+
+    // Add skills to topSkills until we have 8 skills in total
+    for (let i = 0; topSkills.length < 8 && i < remainingSkills.length; i++) {
+        if (!topSkills.some(skill => skill.name === remainingSkills[i].name)) {
+            topSkills.push(remainingSkills[i]);
+        }
+    }
+
+    return topSkills.slice(0, 8); // Ensure we return exactly 8 skills
+}
+
 
 
 // Function to calculate score based on level
