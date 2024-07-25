@@ -4,7 +4,9 @@
     /* background-color: blue; */
     color: black;
     background-color: white;
-    gap: 10px;
+    gap: 0;
+    width: 100%;
+    height: 100vh;
 }
 
 #routine-tables-container.vertical {
@@ -14,13 +16,58 @@
 #routine-tables-container.grid {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2);
+    row-gap: 0;
+    column-gap: 1%;
 }
 
 .routine-table {
-    display: block;
+    table-layout: fixed;
     width: 100%;
+    height: 40vh;
+    overflow: scroll;
+    display: inline-block;
+    box-sizing: content-box;
 }
 
+.routine-table td, .add-row {
+    height: 10%;
+    max-height: 10%;
+    font-size: smaller;
+}
+
+.routine-table th:nth-child(1),
+.routine-table td:nth-child(1) {
+    width: 60%;
+}
+
+.routine-table th:nth-child(2),
+.routine-table td:nth-child(2) {
+    width: 20%;
+}
+
+.routine-table th:nth-child(3),
+.routine-table td:nth-child(3) {
+    width: 20%;
+}
+
+.routine-table tr:first-child  {
+    position: sticky;
+    z-index: 2;
+}
+/* First header row */
+.routine-table .header-row:first-of-type {
+    top: 0;
+}
+.routine-table .add-row {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
+.routine-table tr:add-row {
+    position: absolute;
+    bottom: 0;
+}
 
 #add-routine-table-container {
     border: 1px solid black;
@@ -49,7 +96,7 @@ td {
     padding: 8px;
     text-align: center;
     width: calc(100% / 3);
-    word-wrap: break-word;
+    /* word-wrap: break-word; */
     height: 20px;
 }
 
@@ -65,6 +112,7 @@ td {
 
 #skill-table-container {
     display: none;
+    padding: 1%;
 }
 
 .skill-table {
@@ -182,20 +230,18 @@ td {
     }
 }
 
+
 .title {
     font-family: Arial, sans-serif;
     margin: 0;
     background-color: #f0f0f0;
-    padding: 20px;
     border: 1px solid black;
 }
 
 #grid {
     display: flex;
-    gap: 20px;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    margin: 0;
     padding: 0px;
     justify-content: center;
 }

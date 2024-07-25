@@ -502,7 +502,7 @@ function attachEventListeners() {
         $("#vault").hide();
         $("#pbars").hide();
         $("#highbar").hide();
-        $("#item-1").css("flex", "0 0 90%");
+        $("#item-1").css("flex", "0 0 100%");
     });
 
     $(".delete-skill-button")
