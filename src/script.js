@@ -33,11 +33,6 @@ function searchTable() {
 }
 
 
-
-// now there is going to be a datastructure that is going to be initially empty
-// I want to be able to add to this datastructure easily, and then remove Skill(s) using the name 
-// as the key.
-
 const EP = 8.0;
 
 const MIN_SKILLS = 6;
