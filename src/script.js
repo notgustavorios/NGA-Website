@@ -198,33 +198,33 @@ function calculate_compulsory_NGA(routineTable, _level) {
         });
     });
 
-    const topSkills = getTopRoutineSkills(skills);
+    const topSkills = getTopRoutineSkills(skills, _level);
 
     console.log(topSkills);
 
     let elementGroups = new Set();
+    let elementGroupHasMinDifficulty = [false, false, false, false];
+
     topSkills.forEach(skill => {
         elementGroups.add(skill.elementGroup);
         difficulty += skill.difficulty;
+        if (skill.difficulty >= 0.1) {
+            elementGroupHasMinDifficulty[skill.elementGroup - 1] = true;
+        }
     });
 
-    // Check for element group deductions
-    switch (elementGroups.size) {
-        case 0:
-            break;
-        case 1:
-            EG += 0.5;
-            break;
-        case 2:
-            EG += 1.0;
-            break;
-        case 3:
-            EG += 1.5;
-            break;
-        default:
-            EG += 2.0;
-            break;
+    // Check for element group deductions and add appropriate values
+    let elementGroupCount = 0;
+    for (let i = 0; i < elementGroupHasMinDifficulty.length; i++) {
+        if (elementGroups.has(i + 1)) {
+            if (elementGroupHasMinDifficulty[i]) {
+                elementGroupCount++;
+            } else {
+                EG += 0.3;
+            }
+        }
     }
+    EG += elementGroupCount * 0.5;
 
     // Check for short routine deductions
     switch (topSkills.length) {
@@ -280,7 +280,9 @@ function calculate_compulsory_NGA(routineTable, _level) {
     display_score(routineTable, EG, difficulty, scoreString);
 }
 
-function getTopRoutineSkills(skills) {
+function getTopRoutineSkills(skills, _level) {
+    let superskills_limit = SUPERSKILLS[_level];
+
     // Remove duplicate skills
     let uniqueSkills = skills.reduce((acc, skill) => {
         if (!acc.some(s => s.name === skill.name)) {
@@ -309,10 +311,20 @@ function getTopRoutineSkills(skills) {
     // Flatten the remaining skills and sort again by difficulty value
     let remainingSkills = [].concat(...elementGroups).sort((a, b) => b.difficulty - a.difficulty);
 
-    // Add skills to topSkills until we have 8 skills in total
+    // Add skills to topSkills until we have 8 skills in total, considering superskills limit
+    let superSkillsCount = topSkills.filter(skill => skill.difficulty === 0).length;
+
     for (let i = 0; topSkills.length < 8 && i < remainingSkills.length; i++) {
-        if (!topSkills.some(skill => skill.name === remainingSkills[i].name)) {
-            topSkills.push(remainingSkills[i]);
+        let skill = remainingSkills[i];
+        if (!topSkills.some(s => s.name === skill.name)) {
+            if (skill.difficulty === 0) {
+                if (superSkillsCount < superskills_limit) {
+                    topSkills.push(skill);
+                    superSkillsCount++;
+                }
+            } else {
+                topSkills.push(skill);
+            }
         }
     }
 
