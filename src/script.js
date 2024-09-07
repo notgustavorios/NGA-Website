@@ -198,33 +198,33 @@ function calculate_compulsory_NGA(routineTable, _level) {
         });
     });
 
-    const topSkills = getTopRoutineSkills(skills, _level);
+    const topSkills = getTopRoutineSkills(skills);
 
     console.log(topSkills);
 
     let elementGroups = new Set();
-    let elementGroupHasMinDifficulty = [false, false, false, false];
-
     topSkills.forEach(skill => {
         elementGroups.add(skill.elementGroup);
         difficulty += skill.difficulty;
-        if (skill.difficulty >= 0.1) {
-            elementGroupHasMinDifficulty[skill.elementGroup - 1] = true;
-        }
     });
 
-    // Check for element group deductions and add appropriate values
-    let elementGroupCount = 0;
-    for (let i = 0; i < elementGroupHasMinDifficulty.length; i++) {
-        if (elementGroups.has(i + 1)) {
-            if (elementGroupHasMinDifficulty[i]) {
-                elementGroupCount++;
-            } else {
-                EG += 0.3;
-            }
-        }
+    // Check for element group deductions
+    switch (elementGroups.size) {
+        case 0:
+            break;
+        case 1:
+            EG += 0.5;
+            break;
+        case 2:
+            EG += 1.0;
+            break;
+        case 3:
+            EG += 1.5;
+            break;
+        default:
+            EG += 2.0;
+            break;
     }
-    EG += elementGroupCount * 0.5;
 
     // Check for short routine deductions
     switch (topSkills.length) {
@@ -280,9 +280,7 @@ function calculate_compulsory_NGA(routineTable, _level) {
     display_score(routineTable, EG, difficulty, scoreString);
 }
 
-function getTopRoutineSkills(skills, _level) {
-    let superskills_limit = SUPERSKILLS[_level];
-
+function getTopRoutineSkills(skills) {
     // Remove duplicate skills
     let uniqueSkills = skills.reduce((acc, skill) => {
         if (!acc.some(s => s.name === skill.name)) {
@@ -311,20 +309,10 @@ function getTopRoutineSkills(skills, _level) {
     // Flatten the remaining skills and sort again by difficulty value
     let remainingSkills = [].concat(...elementGroups).sort((a, b) => b.difficulty - a.difficulty);
 
-    // Add skills to topSkills until we have 8 skills in total, considering superskills limit
-    let superSkillsCount = topSkills.filter(skill => skill.difficulty === 0).length;
-
+    // Add skills to topSkills until we have 8 skills in total
     for (let i = 0; topSkills.length < 8 && i < remainingSkills.length; i++) {
-        let skill = remainingSkills[i];
-        if (!topSkills.some(s => s.name === skill.name)) {
-            if (skill.difficulty === 0) {
-                if (superSkillsCount < superskills_limit) {
-                    topSkills.push(skill);
-                    superSkillsCount++;
-                }
-            } else {
-                topSkills.push(skill);
-            }
+        if (!topSkills.some(skill => skill.name === remainingSkills[i].name)) {
+            topSkills.push(remainingSkills[i]);
         }
     }
 
@@ -686,20 +674,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const contextMenu = document.getElementById('contextMenu');
     let selectedRow;
 
-    table.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
+    // table.addEventListener('contextmenu', (event) => {
+    //     event.preventDefault();
 
-        selectedRow = event.target.closest('tr');
-        if (!selectedRow) return;
+    //     selectedRow = event.target.closest('tr');
+    //     if (!selectedRow) return;
 
-        contextMenu.style.display = 'block';
-        contextMenu.style.top = `${event.pageY}px`;
-        contextMenu.style.left = `${event.pageX}px`;
-    });
+    //     contextMenu.style.display = 'block';
+    //     contextMenu.style.top = `${event.pageY}px`;
+    //     contextMenu.style.left = `${event.pageX}px`;
+    // });
 
-    document.addEventListener('click', () => {
-        contextMenu.style.display = 'none';
-    });
+    // document.addEventListener('click', () => {
+    //     contextMenu.style.display = 'none';
+    // });
 
     document.getElementById('deleteRow').addEventListener('click', () => {
         if (selectedRow) {

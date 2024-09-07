@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        /* Make the grid take up 100% of the viewport height */
+        .grid-container {
+            height: 100vh; /* 100% of the viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0px; /* Remove the gap between rows and columns */
+            width: 100%;
+            height: 100%; /* Make the grid take up the entire container */
+        }
+        .grid table {
+            width: 100%;
+            height: 100%; /* Table height is 100% of the parent grid cell */
+            border: 1px solid blue;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        .grid table {
+            display: block;
+            overflow: hidden;
+        }
+        .grid table tbody {
+            display: block;
+            max-height: 100%; /* Max height is 100% of the table */
+            overflow-y: scroll; /* Add vertical scroll if content overflows */
+            width: 100%;
+        }
+        .grid table tr {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+        }
+        .grid table td {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding: 8px;
+            vertical-align: middle;
+            text-align: left;
+        }
+        .add-row-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .add-row-button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Header 1</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto odit distinctio fugiat necessitatibus non voluptatum fuga.</td>
+                    </tr>
+                    <tr>
+                        <td>More content here</td>
+                    </tr>
+                    <tr>
+                        <td>Even more content here</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr><td>something</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr><td>something</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr><td>something</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr><td>something</td></tr>
+                </tbody>
+            </table>
+            <table>
+                <tbody>
+                    <tr><td>something</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <button class="add-row-button" onclick="addRow()">Add Row</button>
+
+    <script>
+        function addRow() {
+            // Get the tbody of the first table
+            const tbody = document.getElementById('table-body');
+            
+            // Create a new tr element
+            const newRow = document.createElement('tr');
+            newRow.style.backgroundColor = 'black';
+            
+            // Create a new td element with some text
+            const newCell = document.createElement('td');
+            newCell.style.color = 'white'; // Text color in the black row
+            newCell.textContent = 'This is a new row';
+
+            // Append the td to the new tr
+            newRow.appendChild(newCell);
+            
+            // Append the new tr to the tbody
+            tbody.appendChild(newRow);
+        }
+    </script>
+</body>
+</html>
