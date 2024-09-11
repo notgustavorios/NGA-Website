@@ -588,8 +588,19 @@ document.getElementById('toggleButton').addEventListener('click', function () {
     container.classList.toggle('grid');
 });
 
+function loadLargeDiv() {
+    fetch('skills.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('large-table-container').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading the large table', error))
+}
+
 $(document).ready(function () {
     console.log("JQuery loaded");
+
+    
 
     // Event listener for add routine button
     $("#add-routine-button").on("click", function () {
@@ -667,48 +678,51 @@ $(document).ready(function () {
         }
     });
     attachEventListeners();
+    loadLargeDiv();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const table = document.getElementById('routine-tables-container');
-    const contextMenu = document.getElementById('contextMenu');
-    let selectedRow;
+// document.addEventListener('DOMContentLoaded', () => {
+//     const table = document.getElementById('routine-tables-container');
+//     const contextMenu = document.getElementById('contextMenu');
+//     let selectedRow;
 
-    // table.addEventListener('contextmenu', (event) => {
-    //     event.preventDefault();
+//     // table.addEventListener('contextmenu', (event) => {
+//     //     event.preventDefault();
 
-    //     selectedRow = event.target.closest('tr');
-    //     if (!selectedRow) return;
+//     //     selectedRow = event.target.closest('tr');
+//     //     if (!selectedRow) return;
 
-    //     contextMenu.style.display = 'block';
-    //     contextMenu.style.top = `${event.pageY}px`;
-    //     contextMenu.style.left = `${event.pageX}px`;
-    // });
+//     //     contextMenu.style.display = 'block';
+//     //     contextMenu.style.top = `${event.pageY}px`;
+//     //     contextMenu.style.left = `${event.pageX}px`;
+//     // });
 
-    // document.addEventListener('click', () => {
-    //     contextMenu.style.display = 'none';
-    // });
+//     // document.addEventListener('click', () => {
+//     //     contextMenu.style.display = 'none';
+//     // });
 
-    document.getElementById('deleteRow').addEventListener('click', () => {
-        if (selectedRow) {
-            selectedRow.remove();
-        }
-    });
+//     document.getElementById('deleteRow').addEventListener('click', () => {
+//         if (selectedRow) {
+//             selectedRow.remove();
+//         }
+//     });
 
-    document.getElementById('insertBefore').addEventListener('click', () => {
-        if (selectedRow) {
-            const newRow = table.insertRow(selectedRow.rowIndex);
-            const cell = newRow.insertCell(0);
-            cell.textContent = 'New Row';
-        }
-    });
+//     document.getElementById('insertBefore').addEventListener('click', () => {
+//         if (selectedRow) {
+//             const newRow = table.insertRow(selectedRow.rowIndex);
+//             const cell = newRow.insertCell(0);
+//             cell.textContent = 'New Row';
+//         }
+//     });
 
-    document.getElementById('insertAfter').addEventListener('click', () => {
-        if (selectedRow) {
-            const newRow = table.insertRow(selectedRow.rowIndex + 1);
-            const cell = newRow.insertCell(0);
-            cell.textContent = 'New Row';
-        }
-    });
-});
+//     document.getElementById('insertAfter').addEventListener('click', () => {
+//         if (selectedRow) {
+//             const newRow = table.insertRow(selectedRow.rowIndex + 1);
+//             const cell = newRow.insertCell(0);
+//             cell.textContent = 'New Row';
+//         }
+//     });
+
+
+// });
 
