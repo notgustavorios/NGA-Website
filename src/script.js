@@ -280,6 +280,26 @@ function calculate_compulsory_NGA(routineTable, _level) {
     display_score(routineTable, EG, difficulty, scoreString);
 }
 
+class Skill {
+    constructor(name, difficulty, elementGroup)
+    {
+        this.name = name;
+        this.difficulty = difficulty;
+        this.elementGroup = elementGroup
+    }
+}
+
+function removeDuplicateSkills(skills)
+{
+    // skills will be an arrary of Skill Class
+    const addresses = skills;
+    const uniqueAddresses = Array.from(new Set(addresses.map(a => a.name)))
+        .map(id => {
+        return addresses.find(a => a.name === id)
+    })
+}
+
+
 function getTopRoutineSkills(skills) {
     // Remove duplicate skills
     let uniqueSkills = skills.reduce((acc, skill) => {
